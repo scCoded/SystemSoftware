@@ -1,6 +1,7 @@
+
 import java.net.*;
 
-class Server 
+class server 
 {
     public static void main(String arg[])
     {
