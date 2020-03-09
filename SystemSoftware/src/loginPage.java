@@ -1,4 +1,12 @@
 
+
+import javax.swing.JOptionPane;
+
+import java.io.BufferedReader;
+//import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class loginPage extends javax.swing.JFrame {
 
     /**
@@ -18,8 +26,8 @@ public class loginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        usrnameBox = new javax.swing.JTextField();
-        passowrdBox = new javax.swing.JPasswordField();
+        usernameBox = new javax.swing.JTextField();
+        passwordBox = new javax.swing.JPasswordField();
         cancelBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -30,16 +38,16 @@ public class loginPage extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 233));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        usrnameBox.setText("Username");
-        usrnameBox.addActionListener(new java.awt.event.ActionListener() {
+        usernameBox.setText("Username");
+        usernameBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usrnameBoxActionPerformed(evt);
+                usernameBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(usrnameBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 96, 123, -1));
+        getContentPane().add(usernameBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 96, 123, -1));
 
-        passowrdBox.setText("..............");
-        getContentPane().add(passowrdBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 130, -1));
+        passwordBox.setText("..............");
+        getContentPane().add(passwordBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 130, -1));
 
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -74,12 +82,68 @@ public class loginPage extends javax.swing.JFrame {
         System. exit(0);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
-    private void usrnameBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usrnameBoxActionPerformed
+    private void usernameBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_usrnameBoxActionPerformed
+    }//GEN-LAST:event_usernameBoxActionPerformed
 
     private void loginBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtn1ActionPerformed
-       SystemSoftwareForm.runner(null);
+               if(usernameBox.getText().trim().isEmpty())
+        {      
+          if(passwordBox.getPassword().length==0)
+          {
+              JOptionPane.showMessageDialog(null, "ERROR : Username and Password empty! ");
+          }
+          else
+          {
+              JOptionPane.showMessageDialog(null, "ERROR : Username empty! ");
+          }
+        }
+        else
+        {      
+            if(passwordBox.getPassword().length!=0)  //if password not empty checks file txt
+            {
+                String csvFile = "/Users/sophieclark/Desktop/SystemSoftware/SystemSoftware/users.txt";
+                String line = "";
+                String cvsSplitBy = ",";
+                String passText = new String(passwordBox.getPassword());
+                String userText = new String(usernameBox.getText());
+                boolean found = false;
+                try (BufferedReader csvReader = new BufferedReader(new FileReader(csvFile)))
+                {
+                    while ((line = csvReader.readLine()) != null)
+                    {
+                        String[] user = line.split(cvsSplitBy);
+                       
+                       
+                        if(user[0].equals(userText) || user[1].equals(passText))
+                        {
+                            SystemSoftwareForm.runner(null);
+                            this.dispose();
+                            found = true;
+                            break;
+     
+                        }
+                    }
+                    if(!found)
+                    {
+                        JOptionPane.showMessageDialog(null, "ERROR : Invalid credentials! ");
+                        passwordBox.setText("");
+                        usernameBox.setText("");
+                    }
+
+                    
+               
+                } catch (IOException e) {        
+                    e.printStackTrace();
+                }
+               
+               
+            }
+            else
+            {
+               JOptionPane.showMessageDialog(null, "ERROR : Password empty! ");
+            }
+        }
     }//GEN-LAST:event_loginBtn1ActionPerformed
 
     /**
@@ -123,7 +187,7 @@ public class loginPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton loginBtn1;
-    private javax.swing.JPasswordField passowrdBox;
-    private javax.swing.JTextField usrnameBox;
+    private javax.swing.JPasswordField passwordBox;
+    private javax.swing.JTextField usernameBox;
     // End of variables declaration//GEN-END:variables
 }
