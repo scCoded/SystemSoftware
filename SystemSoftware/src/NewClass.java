@@ -1,6 +1,7 @@
+
 import java.net.*;
 
-class Server 
+class server 
 {
     public static void main(String arg[])
     {
@@ -9,6 +10,6 @@ class Server
         Socket s = server.accept();
         
         System.out.println("Connected");
-            } catch (Exception e) {}
+    } catch (Exception e) {}
     }
 }

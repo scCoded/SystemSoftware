@@ -7,7 +7,7 @@ public class WeatherStation {
     private int soilPH;
     private int windSpeed;
     
-    WeatherStation(){}
+        WeatherStation(){}
     
     WeatherStation(int stationNumber,String gps,int temperature,double humidity,int soilPH,int windSpeed){
         this.stationNumber = stationNumber;

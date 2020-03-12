@@ -3,8 +3,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     public SystemSoftwareForm() {
         initComponents();
         jComboBoxWs.setSelectedItem(null);
-        jLabelWsSelected.setText(" No Weather Station Selected");
-       
+        jLabelWsSelected.setText(" No Weather Station Selected");   
     }
 
 
@@ -21,7 +20,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelWind = new javax.swing.JLabel();
         jLabelSoil = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBoxWs = new javax.swing.JComboBox<String>();
+        jComboBoxWs = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -54,7 +53,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelHumid.setText(" Humidity :");
         jLabelHumid.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabelWind.setText(" WindSpeed : ");
+        jLabelWind.setText(" Wind Speed : ");
         jLabelWind.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabelSoil.setText(" Soil PH :");
@@ -95,7 +94,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
+        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
         jComboBoxWs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxWsActionPerformed(evt);
@@ -159,36 +158,36 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelWsSelected.setText(value +" Conditions : ");
         if(value == " Weather Station 1"){
             jLabelGPS.setText(" GPS Position : " + ws1.getGps());
-            jLabelTemp.setText(" Temperature : " + ws1.getTemperature());
-            jLabelHumid.setText(" Humidity : " + ws1.getHumidity());
-            jLabelSoil.setText(" SoilPH : " + ws1.getSoilPH());
-            jLabelWind.setText(" WindSpeed : " + ws1.getWindSpeed());
+            jLabelTemp.setText(" temperature : " + ws1.getTemperature());
+            jLabelHumid.setText(" humidity : " + ws1.getHumidity());
+            jLabelSoil.setText(" soilPH : " + ws1.getSoilPH());
+            jLabelWind.setText(" windSpeed : " + ws1.getWindSpeed());
         }
         if(value == " Weather Station 2"){
             jLabelGPS.setText(" GPS Position : " + ws2.getGps());
-            jLabelTemp.setText(" Temperature : " + ws2.getTemperature());
-            jLabelHumid.setText(" Humidity : " + ws2.getHumidity());
-            jLabelSoil.setText(" SoilPH : " + ws2.getSoilPH());
-            jLabelWind.setText(" WindSpeed : " + ws2.getWindSpeed());
+            jLabelTemp.setText(" temperature : " + ws2.getTemperature());
+            jLabelHumid.setText(" humidity : " + ws2.getHumidity());
+            jLabelSoil.setText(" soilPH : " + ws2.getSoilPH());
+            jLabelWind.setText(" windSpeed : " + ws2.getWindSpeed());
         }
         if(value == " Weather Station 3"){
-            jLabelGPS.setText(" GPS Position : " + ws3.getGps());
-            jLabelTemp.setText(" Temperature : " + ws3.getTemperature());
-            jLabelHumid.setText(" Humidity : " + ws3.getHumidity());
-            jLabelSoil.setText(" SoilPH : " + ws3.getSoilPH());
-            jLabelWind.setText(" WindSpeed : " + ws3.getWindSpeed());
+jLabelGPS.setText(" GPS Position : " + ws1.getGps());
+            jLabelTemp.setText(" temperature : " + ws3.getTemperature());
+            jLabelHumid.setText(" humidity : " + ws3.getHumidity());
+            jLabelSoil.setText(" soilPH : " + ws3.getSoilPH());
+            jLabelWind.setText(" windSpeed : " + ws3.getWindSpeed());
         }
         if(value == " Weather Station 4"){
             jLabelGPS.setText(" GPS Position : " + ws4.getGps());
-            jLabelTemp.setText(" Temperature : " + ws4.getTemperature());
-            jLabelHumid.setText(" Humidity : " + ws4.getHumidity());
-            jLabelSoil.setText(" SoilPH : " + ws4.getSoilPH());
-            jLabelWind.setText(" WindSpeed : " + ws4.getWindSpeed());
+            jLabelTemp.setText(" temperature : " + ws4.getTemperature());
+            jLabelHumid.setText(" humidity : " + ws4.getHumidity());
+            jLabelSoil.setText(" soilPH : " + ws4.getSoilPH());
+            jLabelWind.setText(" windSpeed : " + ws4.getWindSpeed());
         }
        
     }//GEN-LAST:event_jComboBoxWsActionPerformed
 
-    public static void main(String args[]) {
+    public static void runner(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
