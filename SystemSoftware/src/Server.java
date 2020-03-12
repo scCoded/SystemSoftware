@@ -9,6 +9,6 @@ class Server
         Socket s = server.accept();
         
         System.out.println("Connected");
-    } catch (Exception e) {}
+            } catch (Exception e) {}
     }
 }
