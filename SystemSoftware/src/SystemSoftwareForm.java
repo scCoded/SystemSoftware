@@ -1,5 +1,11 @@
-public class SystemSoftwareForm extends javax.swing.JFrame {
 
+import java.util.Random;
+
+public class SystemSoftwareForm extends javax.swing.JFrame {
+        WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
+        WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
+        WeatherStation ws3 = new WeatherStation(1,"Hertfordshire, Hatfield",26,0.33,7,35);
+        WeatherStation ws4 = new WeatherStation(1,"London, London King's Cross",10,0.56,8,43);
     public SystemSoftwareForm() {
         initComponents();
         jComboBoxWs.setSelectedItem(null);
@@ -19,8 +25,9 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelHumid = new javax.swing.JLabel();
         jLabelWind = new javax.swing.JLabel();
         jLabelSoil = new javax.swing.JLabel();
+        refresh = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jComboBoxWs = new javax.swing.JComboBox<>();
+        jComboBoxWs = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -59,6 +66,13 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelSoil.setText(" Soil PH :");
         jLabelSoil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        refresh.setText("Refresh");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -71,7 +85,10 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                     .addComponent(jLabelTemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelHumid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelSoil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelWind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelWind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(refresh)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -89,12 +106,14 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 .addComponent(jLabelSoil, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelWind, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(refresh)
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
+        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
         jComboBoxWs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxWsActionPerformed(evt);
@@ -150,10 +169,10 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private void jComboBoxWsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWsActionPerformed
         String value = (String)jComboBoxWs.getSelectedItem();
         
-        WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
-        WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
-        WeatherStation ws3 = new WeatherStation(1,"Hertfordshire, Hatfield",26,0.33,7,35);
-        WeatherStation ws4 = new WeatherStation(1,"London, London King's Cross",10,0.56,8,43);
+        //WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
+        //WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
+        //WeatherStation ws3 = new WeatherStation(1,"Hertfordshire, Hatfield",26,0.33,7,35);
+        //WeatherStation ws4 = new WeatherStation(1,"London, London King's Cross",10,0.56,8,43);
         
         jLabelWsSelected.setText(value +" Conditions : ");
         if(value == " Weather Station 1"){
@@ -187,6 +206,127 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
        
     }//GEN-LAST:event_jComboBoxWsActionPerformed
 
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        // TODO add your handling code here:
+        String value = (String)jComboBoxWs.getSelectedItem();
+       
+        
+        // refresh temperature, humidity, soilPH, windspeed
+
+         Random rand = new Random();
+         int newTempDiff = rand.nextInt(3);
+         int addSubTemp = rand.nextInt(2);
+         
+         int temp = ws1.getTemperature();
+         int temp2 = ws2.getTemperature();
+         int temp3 = ws3.getTemperature();
+         int temp4 = ws4.getTemperature();
+         
+         double newHumdityDiff = rand.nextDouble()*(0.1*(0.20-0.01) + 0.1);
+         int addSubHumdity = rand.nextInt(2);
+         double humid = ws1.getHumidity();
+         double humid2 = ws2.getHumidity();
+         double humid3 = ws3.getHumidity();
+         double humid4 = ws4.getHumidity();
+         
+         
+         
+         
+         
+        if (value == " Weather Station 1") {    
+            if(addSubTemp == 0){
+             //Decrease temperature
+             temp = temp - newTempDiff;
+         }else{
+             //Increase temperature
+             temp = temp + newTempDiff;
+         }
+            
+            ws1.setTemperature(temp);
+            jLabelTemp.setText(" temperature : " + ws1.getTemperature());
+            
+            if (addSubHumdity ==0){
+             //Decreases humdity
+             humid = humid - newHumdityDiff;
+            }else {
+             //Increase humdity 
+             humid = humid + newHumdityDiff;
+         }
+         ws1.setHumidity(humid);
+         jLabelHumid.setText(" humidity : " + ws1.getHumidity());
+         
+        }
+        else if(value == " Weather Station 2")
+        {  
+            if(addSubTemp == 0){
+             //Decrease temperature
+             temp2 = temp2 - newTempDiff;
+         }else{
+             //Increase temperature
+             temp2 = temp2 + newTempDiff;
+         }
+         ws2.setTemperature(temp2);
+         jLabelTemp.setText(" temperature : " + ws2.getTemperature());
+         
+         if (addSubHumdity ==0){
+             //Decreases humdity
+             humid2 = humid2 - newHumdityDiff;
+            }else {
+             //Increase humdity 
+             humid2 = humid2 + newHumdityDiff;
+         }
+         ws2.setHumidity(humid2);
+         jLabelHumid.setText(" humidity : " + ws2.getHumidity());
+         
+        }
+        else if(value == " Weather Station 3")
+        {    
+            if(addSubTemp == 0){
+             //Decrease temperature
+             temp3 = temp3 - newTempDiff;
+         }else{
+             //Increase temperature
+             temp3 = temp3 + newTempDiff;
+         }
+         ws3.setTemperature(temp3);
+         jLabelTemp.setText(" temperature : " + ws3.getTemperature());
+         
+ 
+         if (addSubHumdity ==0){
+             //Decreases humdity
+             humid3 = humid3 - newHumdityDiff;
+            }else {
+             //Increase humdity 
+             humid3 = humid3 + newHumdityDiff;
+         }
+         ws3.setHumidity(humid3);
+         jLabelHumid.setText(" humidity : " + ws3.getHumidity());
+         
+        }
+        else if(value == " Weather Station 4")
+        {     
+            if(addSubTemp == 0){
+             //Decrease temperature
+             temp4 = temp4 - newTempDiff;
+         }else{
+             //Increase temperature
+             temp4 = temp4 + newTempDiff;
+         }
+         ws4.setTemperature(temp4);
+         jLabelTemp.setText(" temperature : " + ws4.getTemperature());
+         if (addSubHumdity ==0){
+             //Decreases humdity
+             humid4 = humid4 - newHumdityDiff;
+            }else {
+             //Increase humdity 
+             humid4 = humid4 + newHumdityDiff;
+         }
+         ws4.setHumidity(humid4);
+         jLabelHumid.setText(" humidity : " + ws4.getHumidity());
+        }
+      
+    }//GEN-LAST:event_refreshActionPerformed
+
     public static void runner(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -209,5 +349,6 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton refresh;
     // End of variables declaration//GEN-END:variables
 }

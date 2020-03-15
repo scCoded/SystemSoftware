@@ -102,7 +102,7 @@ public class loginPage extends javax.swing.JFrame {
         {      
             if(passwordBox.getPassword().length!=0)  //if password not empty checks file txt
             {
-                String csvFile = "/Users/sophieclark/Desktop/SystemSoftware/SystemSoftware/users.txt";
+                String csvFile = "C:\\Users\\Roshni\\Documents\\GitHub\\SystemSoftware\\SystemSoftware\\users.txt";
                 String line = "";
                 String cvsSplitBy = ",";
                 String passText = new String(passwordBox.getPassword());
