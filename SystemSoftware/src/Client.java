@@ -1,13 +1,15 @@
+import java.net.*; 
 
-import java.net.*;
-class client
+public class Client
 {
-    public static void main (String arg[])
+    public static void main (String[] arg)
     {
         try
         {
         Socket s = new Socket("127.0.0.1",3000);
         System.out.println("Connected!!");
+        
+        loginPage.main(arg);
         
         }catch(Exception e){}
         

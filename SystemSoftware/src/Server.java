@@ -1,7 +1,6 @@
-
 import java.net.*;
 
-class server 
+public class Server 
 {
     public static void main(String arg[])
     {
@@ -13,3 +12,4 @@ class server
     } catch (Exception e) {}
     }
 }
+
