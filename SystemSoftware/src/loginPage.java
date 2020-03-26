@@ -109,7 +109,7 @@ public class loginPage extends javax.swing.JFrame {
                         String[] user = line.split(cvsSplitBy);
                        
                        
-                        if(user[0].equals(userText) || user[1].equals(passText))
+                        if(user[0].equals(userText) && user[1].equals(passText))
                         {
                             SystemSoftwareForm.runner(null);
                             this.dispose();
