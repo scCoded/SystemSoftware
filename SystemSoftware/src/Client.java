@@ -4,29 +4,32 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
+import java.util.Scanner;
 
 class Client
 {
     public static void main (String args[]) throws UnknownHostException, IOException
     {
-        try{
-            String name = args[0];
-            Socket socket = new Socket("127.0.0.1",3000);
-
-            BufferedReader bfClient = new BufferedReader(new InputStreamReader(socket.getInputStream())); //
-
-            PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
-            pw.println(name); //takes in the name of client connected.
-            BufferedReader bfCommandPrompt = new BufferedReader(new InputStreamReader(System.in)); //takes terminal input msg
-
-            while(true)
+        String host = "127.0.0.1";
+        int port = 3000;
+        try (Socket socket = new Socket(host, port))
+        {
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Scanner scanner = new Scanner(System.in);
+            String line = null;
+            loginPage.main(args);
+            while (!"exit".equalsIgnoreCase(line))
             {
-                String readerInput = bfCommandPrompt.readLine();
-                pw.println(name + ": " + readerInput); //prints message entered in server.
-
-               System.out.println(bfClient.readLine()); //echoes message in server back to the client that sent it.
-
+                line = scanner.nextLine();
+                out.println(line);
+                out.flush();
+                System.out.println("Server replied " + in.readLine());
             }
-        }catch(Exception e){}
+            scanner.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }      
 }
