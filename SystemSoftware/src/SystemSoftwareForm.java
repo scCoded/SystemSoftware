@@ -190,7 +190,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
             jLabelWind.setText(" windSpeed : " + ws2.getWindSpeed());
         }
         if(value == " Weather Station 3"){
-jLabelGPS.setText(" GPS Position : " + ws1.getGps());
+            jLabelGPS.setText(" GPS Position : " + ws1.getGps());
             jLabelTemp.setText(" temperature : " + ws3.getTemperature());
             jLabelHumid.setText(" humidity : " + ws3.getHumidity());
             jLabelSoil.setText(" soilPH : " + ws3.getSoilPH());
@@ -206,11 +206,13 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
        
     }//GEN-LAST:event_jComboBoxWsActionPerformed
 
+
+   
+
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         // TODO add your handling code here:
         String value = (String)jComboBoxWs.getSelectedItem();
-       
-        
+  
         // refresh temperature, humidity, soilPH, windspeed
 
          Random rand = new Random();
@@ -229,8 +231,19 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
          double humid3 = ws3.getHumidity();
          double humid4 = ws4.getHumidity();
          
+         int newSoilPH = rand.nextInt(3);
+         int addSubSoil = rand.nextInt(2);
+         int soil = ws1.getSoilPH();
+         int soil2 = ws2.getSoilPH();
+         int soil3 = ws3.getSoilPH();
+         int soil4 = ws4.getSoilPH();
          
-         
+         int newWindSpeed = rand.nextInt(3);
+         int addSubWindSpeed = rand.nextInt(2);
+         int windSpeed = ws1.getWindSpeed();
+         int windSpeed2 = ws2.getWindSpeed();
+         int windSpeed3 = ws3.getWindSpeed();
+         int windSpeed4 = ws4.getWindSpeed();
          
          
         if (value == " Weather Station 1") {    
@@ -243,7 +256,7 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
          }
             
             ws1.setTemperature(temp);
-            jLabelTemp.setText(" temperature : " + ws1.getTemperature());
+            jLabelTemp.setText(" Temperature : " + ws1.getTemperature());
             
             if (addSubHumdity ==0){
              //Decreases humdity
@@ -253,8 +266,27 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
              humid = humid + newHumdityDiff;
          }
          ws1.setHumidity(humid);
-         jLabelHumid.setText(" humidity : " + ws1.getHumidity());
+         jLabelHumid.setText(" Humidity : " + ws1.getHumidity());
          
+         if (addSubSoil ==0){
+             //Decreases Soil PH
+             soil = soil - newSoilPH;
+            }else {
+             //Increase Soil PH 
+             soil = soil + newSoilPH;
+         }
+         ws1.setSoilPH(soil);
+         jLabelSoil.setText(" SoilPH : " + ws1.getSoilPH());
+         
+         if (addSubWindSpeed ==0){
+             //Decreases wind speed
+             windSpeed = windSpeed - newWindSpeed;
+            }else {
+             //Increase wind speed
+             windSpeed = windSpeed + newWindSpeed;
+         }
+         ws1.setWindSpeed(windSpeed);
+         jLabelWind.setText(" Wind Speed : " + ws1.getWindSpeed());
         }
         else if(value == " Weather Station 2")
         {  
@@ -266,7 +298,7 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
              temp2 = temp2 + newTempDiff;
          }
          ws2.setTemperature(temp2);
-         jLabelTemp.setText(" temperature : " + ws2.getTemperature());
+         jLabelTemp.setText(" Temperature : " + ws2.getTemperature());
          
          if (addSubHumdity ==0){
              //Decreases humdity
@@ -276,8 +308,27 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
              humid2 = humid2 + newHumdityDiff;
          }
          ws2.setHumidity(humid2);
-         jLabelHumid.setText(" humidity : " + ws2.getHumidity());
+         jLabelHumid.setText(" Humidity : " + ws2.getHumidity());
          
+         if (addSubSoil ==0){
+             //Decreases Soil PH
+             soil2 = soil2 - newSoilPH;
+            }else {
+             //Increase Soil PH 
+             soil2 = soil2 + newSoilPH;
+         }
+         ws2.setSoilPH(soil2);
+         jLabelSoil.setText(" SoilPH : " + ws2.getSoilPH());
+         
+          if (addSubWindSpeed ==0){
+             //Decreases wind speed
+             windSpeed2 = windSpeed2 - newWindSpeed;
+            }else {
+             //Increase wind speed
+             windSpeed2 = windSpeed2 + newWindSpeed;
+         }
+         ws2.setWindSpeed(windSpeed2);
+         jLabelWind.setText(" Wind Speed : " + ws2.getWindSpeed()); 
         }
         else if(value == " Weather Station 3")
         {    
@@ -289,7 +340,7 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
              temp3 = temp3 + newTempDiff;
          }
          ws3.setTemperature(temp3);
-         jLabelTemp.setText(" temperature : " + ws3.getTemperature());
+         jLabelTemp.setText(" Temperature : " + ws3.getTemperature());
          
  
          if (addSubHumdity ==0){
@@ -300,7 +351,28 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
              humid3 = humid3 + newHumdityDiff;
          }
          ws3.setHumidity(humid3);
-         jLabelHumid.setText(" humidity : " + ws3.getHumidity());
+         jLabelHumid.setText(" Humidity : " + ws3.getHumidity());
+         
+            if (addSubSoil ==0){
+             //Decreases Soil PH
+             soil3 = soil3 - newSoilPH;
+            }else {
+             //Increase Soil PH 
+             soil3 = soil3 + newSoilPH;
+         }
+         ws3.setSoilPH(soil3);
+         
+         jLabelSoil.setText(" SoilPH : " + ws3.getSoilPH());
+         
+          if (addSubWindSpeed ==0){
+             //Decreases wind speed
+             windSpeed3 = windSpeed3 - newWindSpeed;
+            }else {
+             //Increase wind speed
+             windSpeed3 = windSpeed3 + newWindSpeed;
+         }
+         ws3.setWindSpeed(windSpeed3);
+         jLabelWind.setText(" Wind Speed : " + ws3.getWindSpeed());
          
         }
         else if(value == " Weather Station 4")
@@ -313,7 +385,7 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
              temp4 = temp4 + newTempDiff;
          }
          ws4.setTemperature(temp4);
-         jLabelTemp.setText(" temperature : " + ws4.getTemperature());
+         jLabelTemp.setText(" Temperature : " + ws4.getTemperature());
          if (addSubHumdity ==0){
              //Decreases humdity
              humid4 = humid4 - newHumdityDiff;
@@ -322,7 +394,28 @@ jLabelGPS.setText(" GPS Position : " + ws1.getGps());
              humid4 = humid4 + newHumdityDiff;
          }
          ws4.setHumidity(humid4);
-         jLabelHumid.setText(" humidity : " + ws4.getHumidity());
+         jLabelHumid.setText(" Humidity : " + ws4.getHumidity());
+         
+         if (addSubSoil ==0){
+             //Decreases Soil PH
+             soil4 = soil4 - newSoilPH;
+            }else {
+             //Increase Soil PH 
+             soil4 = soil4 + newSoilPH;
+         }
+         ws4.setSoilPH(soil4);
+         
+         jLabelSoil.setText(" SoilPH : " + ws4.getSoilPH());
+         
+          if (addSubWindSpeed ==0){
+             //Decreases wind speed
+             windSpeed4 = windSpeed4 - newWindSpeed;
+            }else {
+             //Increase wind speed
+             windSpeed4 = windSpeed4 + newWindSpeed;
+         }
+         ws4.setWindSpeed(windSpeed4);
+         jLabelWind.setText(" Wind Speed : " + ws4.getWindSpeed());
         }
       
     }//GEN-LAST:event_refreshActionPerformed
