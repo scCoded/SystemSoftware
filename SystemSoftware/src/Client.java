@@ -5,12 +5,15 @@ import java.net.UnknownHostException;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.util.Scanner;
+import java.net.InetAddress;
 
 class Client
 {
     public static void main (String args[]) throws UnknownHostException, IOException
     {
-        String host = "127.0.0.1";
+       InetAddress inetAddress = InetAddress.getLocalHost();
+        String host = "178.62.9.119";
+        System.out.println(host);
         int port = 3000;
         try (Socket socket = new Socket(host, port))
         {
