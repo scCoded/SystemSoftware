@@ -1,6 +1,5 @@
 
 import java.util.Random;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,8 +15,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         initComponents();
         jComboBoxWs.setSelectedItem(null);
         jLabelWsSelected.setText(" No Weather Station Selected"); 
-            
-      String host = "178.62.9.119";
+        String host = "178.62.9.119";    
         int port = 3000;
         try (Socket socket = new Socket("localhost", port))
         {
