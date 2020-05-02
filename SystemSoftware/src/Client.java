@@ -21,7 +21,7 @@ class Client
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner scanner = new Scanner(System.in);
             String line = null;
-            loginPage.main(args);
+            //loginPage.main(args);
             while (!"exit".equalsIgnoreCase(line))
             {
                 line = scanner.nextLine();
