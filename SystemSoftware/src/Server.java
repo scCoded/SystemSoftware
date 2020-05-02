@@ -26,6 +26,13 @@ public class Server
         int[] data = {5,4,3,4,5};
         thisObj.addStationData("station1", data);
         
+        int stationData[] = thisObj.getStationData("station1");
+        System.out.println("data for station" + java.util.Arrays.toString(stationData));
+        
+        updateStationData("station1",0,420);
+        int stationDataUpdated[] = thisObj.getStationData("station1");      
+        System.out.println("data for station" + java.util.Arrays.toString(stationDataUpdated));
+
         try {
             server = new ServerSocket(3000);
             server.setReuseAddress(true);
@@ -40,6 +47,7 @@ public class Server
                 
                 pool.execute(clientThread);
             }
+            
          } catch (IOException e)
          {
              e.printStackTrace();
@@ -83,7 +91,7 @@ public class Server
         int[] newData = stationData.get(key);
         newData[index] = newValue; 
         stationData.replace(key, newData);
-        System.out.println("data for ID " + key + " at " + index + "has been updated in the server map");
+        System.out.println("data for ID " + key + " at " + index + " has been updated in the server map");
     }
     
     public static int[] getStationData(String key)
