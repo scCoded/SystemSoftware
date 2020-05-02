@@ -26,6 +26,12 @@ public class Server
         int[] data = {5,4,3,4,5};
         thisObj.addStationData("station1", data);
         
+        int stationData[] = thisObj.getStationData("station1");
+        System.out.println("data for station" + java.util.Arrays.toString(stationData));
+
+        updateStationData("station1",0,420);
+        int stationDataUpdated[] = thisObj.getStationData("station1");      
+        System.out.println("data for station" + java.util.Arrays.toString(stationDataUpdated));
         try {
             server = new ServerSocket(3000);
             server.setReuseAddress(true);
