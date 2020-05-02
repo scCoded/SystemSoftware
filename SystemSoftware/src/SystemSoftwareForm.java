@@ -1,15 +1,44 @@
 
 import java.util.Random;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+import java.util.Arrays;
+
 public class SystemSoftwareForm extends javax.swing.JFrame {
-        WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
-        WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
-        WeatherStation ws3 = new WeatherStation(1,"Hertfordshire, Hatfield",26,0.33,7,35);
-        WeatherStation ws4 = new WeatherStation(1,"London, London King's Cross",10,0.56,8,43);
+
     public SystemSoftwareForm() {
         initComponents();
         jComboBoxWs.setSelectedItem(null);
-        jLabelWsSelected.setText(" No Weather Station Selected");   
+        jLabelWsSelected.setText(" No Weather Station Selected"); 
+            
+      String host = "178.62.9.119";
+        int port = 3000;
+        try (Socket socket = new Socket("localhost", port))
+        {
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Scanner scanner = new Scanner(System.in);
+            String line = null;
+            
+            
+            while (!"exit".equalsIgnoreCase(line))
+            {
+                line = scanner.nextLine();
+                out.println(line);
+                out.flush();
+                System.out.println("Server replied " + in.readLine());
+            }
+            scanner.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
@@ -167,7 +196,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
     
     private void jComboBoxWsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWsActionPerformed
-        String value = (String)jComboBoxWs.getSelectedItem();
+        /*String value = (String)jComboBoxWs.getSelectedItem();
         
         //WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
         //WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
@@ -197,11 +226,11 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
             jLabelWind.setText(" windSpeed : " + ws3.getWindSpeed());
         }
         if(value == " Weather Station 4"){
-            jLabelGPS.setText(" GPS Position : " + ws4.getGps());
-            jLabelTemp.setText(" temperature : " + ws4.getTemperature());
-            jLabelHumid.setText(" humidity : " + ws4.getHumidity());
-            jLabelSoil.setText(" soilPH : " + ws4.getSoilPH());
-            jLabelWind.setText(" windSpeed : " + ws4.getWindSpeed());
+            jLabelGPS.setText(" GPS Position : " );
+            jLabelTemp.setText(" temperature : " );
+            jLabelHumid.setText(" humidity : " );
+            jLabelSoil.setText(" soilPH : " );
+            jLabelWind.setText(" windSpeed : " );
         }
        
     }//GEN-LAST:event_jComboBoxWsActionPerformed
@@ -417,9 +446,9 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
          ws4.setWindSpeed(windSpeed4);
          jLabelWind.setText(" Wind Speed : " + ws4.getWindSpeed());
         }
-      
+    */  
     }//GEN-LAST:event_refreshActionPerformed
-
+    
     public static void runner(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -428,6 +457,8 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 new SystemSoftwareForm().setVisible(true);
             }
         });
+
+    
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
