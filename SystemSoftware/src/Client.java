@@ -15,13 +15,13 @@ class Client
         String host = "178.62.9.119";
         System.out.println(host);
         int port = 3000;
-        try (Socket socket = new Socket(host, port))
+        try (Socket socket = new Socket("localhost", port))
         {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner scanner = new Scanner(System.in);
             String line = null;
-            loginPage.main(args);
+            //loginPage.main(args);
             while (!"exit".equalsIgnoreCase(line))
             {
                 line = scanner.nextLine();

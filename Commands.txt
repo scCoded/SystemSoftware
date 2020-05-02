@@ -1,0 +1,17 @@
+cd /
+cd Github\SystemSoftware\SystemSoftware\src
+javac Server.java
+java Server
+
+cd /
+cd Github\SystemSoftware\SystemSoftware\src
+javac WeatherStation.java
+java WeatherStation
+
+cd /
+cd Github\SystemSoftware\SystemSoftware\src
+javac Client.java
+java Client
+
+getStationData1,stationX
+

@@ -1,8 +1,10 @@
 import java.net.*;
 import java.io.*;
+import java.lang.System.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -12,7 +14,7 @@ import java.util.concurrent.Executors;
 public class Server 
 {
     private static ArrayList<ClientHandler> clients = new ArrayList<>();
-    private static ExecutorService pool = Executors.newFixedThreadPool(4);
+    private static ExecutorService pool = Executors.newFixedThreadPool(10);
     
     static Map<String, int[]> stationData;
         
@@ -131,46 +133,62 @@ class ClientHandler implements Runnable
     {
         try 
         {
-            System.out.println("station 1");
+            
             
             String request;
-            int inputInt;
-            String inputString;
-            int[] inputList;
+            String[] requestArray = {};
             
             while ((request = in.readLine()) != null)
             {
                 System.out.printf("Request from the client: %s\n", request);
+                requestArray = request.split(",");
                 
-                if (request.equals("getStationDataPoint2"))
+                
+                
+                if (requestArray[0].equals("getStationDataPoint2"))
                 {
-                    inputString = in.readLine();
-                    inputInt = Integer.parseInt(in.readLine());
-                    int output = Server.getStationDataPoint(inputString, inputInt);
+                    String key = requestArray[1];
+                    int index = Integer.parseInt(requestArray[2]);
+                    int output = Server.getStationDataPoint(key, index);
                     out.println(output);
                 }
-                else if (request.equals("addStationData1"))
+                else if (requestArray[0].equals("getStationData1"))
                 {
-                    inputString = in.readLine();
-                    Server.addStationData(inputString);
+                    String key = requestArray[1];
+                    int[] output = Server.getStationData(key);
+                    out.println(Arrays.toString(output));
                 }
-                else if (request.equals("addStationData2"))
+                else if (requestArray[0].equals("addStationData1"))
                 {
-                    inputString = in.readLine();
-                    //inputList = in.readLine();
-                    Server.addStationData(inputString);
+                    String key = requestArray[1];
+                    Server.addStationData(key);
                 }
-                else if (request.equals("updateStationData3"))
+                else if (requestArray[0].equals("addStationData2"))
                 {
-                    inputString = in.readLine();
-                    inputInt = Integer.parseInt(in.readLine());
-                    int newValue = Integer.parseInt(in.readLine());
-                    Server.updateStationData(inputString, inputInt, newValue);
+                    String key = requestArray[1];
+                    int[] data = {Integer.parseInt(requestArray[2]),
+                        Integer.parseInt(requestArray[3]),
+                        Integer.parseInt(requestArray[4]),
+                        Integer.parseInt(requestArray[5]),
+                        Integer.parseInt(requestArray[6]),
+                        Integer.parseInt(requestArray[7])
+                        };
+                    Server.addStationData(key, data);
                 }
+                else if (requestArray[0].equals("updateStationData3"))
+                {
+                    String key = requestArray[1];
+                    int index = Integer.parseInt(requestArray[2]);
+                    int newValue = Integer.parseInt(requestArray[3]);
+                    Server.updateStationData(key, index, newValue);
+                }
+                else
+                {
+                    out.println("request not found");
+                }
+                    
+                    
                 
-                    
-                    
-                out.println(request);
             }           
         }
         catch (IOException e)
@@ -188,7 +206,7 @@ class ClientHandler implements Runnable
                 if (in != null)
                 {
                     in.close();
-                    clientSocket.close();
+                    client.close();
                 }   
             }catch(IOException e)
             {
