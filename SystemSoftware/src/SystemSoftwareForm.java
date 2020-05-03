@@ -45,7 +45,18 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     {
         weatherStations.put(key, data);
         System.out.println("slot for ID " + key + " has been added to the server map");  
+        
+        updateComboBox();
     }
+   
+   public static void updateComboBox()
+   {
+        List<String> stations = new ArrayList();
+             for( Map.Entry<String,int[]> entry: weatherStations.entrySet()){
+                  stations.add(entry.getKey());   
+              }
+              jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel( stations.toArray()));
+   }
 
 
     @SuppressWarnings("unchecked")
@@ -204,13 +215,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
             
         
         
-        for( Map.Entry<String,WeatherStation> entry: weatherStations.entrySet()){
-             
-            System.out.println("hello");
-            
-         }
-        
-        
         /*
 
         String value = (String)jComboBoxWs.getSelectedItem();
@@ -281,7 +285,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connect;
-    private javax.swing.JComboBox<String> jComboBoxWs;
+    private static javax.swing.JComboBox<String> jComboBoxWs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelGPS;
     private javax.swing.JLabel jLabelHumid;
@@ -315,7 +319,7 @@ class ServerHandler implements Runnable
     public void requestAll() {
         System.out.printf("request all begun:");
         out.println("requestAllStationData");
-        
+
     }
     
     

@@ -133,11 +133,12 @@ class ClientHandler implements Runnable
     @Override
     public void run()
     {
+        System.out.printf("Thread begun:");
         try 
         {
+            System.out.printf("Waiting for request: ");
             
-            
-            String request = " ";
+            String request;
             String[] requestArray = {};
             
             while ((request = in.readLine()) != null)

@@ -41,7 +41,7 @@ public class WeatherStation {
     public static void main (String args[]) throws UnknownHostException, IOException
     {
         WeatherStation thisObj = new WeatherStation();
-        thisObj.startRunning();
+        //thisObj.startRunning();
         
         ID = "station" + stationNumber;
         String host = "127.0.0.1";
@@ -51,19 +51,13 @@ public class WeatherStation {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner scanner = new Scanner(System.in);
-            String line = null;
             printData();
             String hello = ("addStationData2," + ID + "," + (gps[0]) + "," + (gps[1]) + "," + temperature + "," + humidity + "," + soilPH + "," + windSpeed);
             System.out.println(hello);
             out.println(hello);
             
-            while (!"exit".equalsIgnoreCase(line))
-            {
-                line = scanner.nextLine();
-                out.println(line);
-                out.flush();
-                System.out.println("Server replied " + in.readLine());
-            }
+
+            
             scanner.close();
         } catch (IOException e)
         {
