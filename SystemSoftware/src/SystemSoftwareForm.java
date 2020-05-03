@@ -57,6 +57,12 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
               }
               jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel( stations.toArray()));
    }
+   
+   public static void updateData()
+   {
+       
+       
+   }
 
 
     @SuppressWarnings("unchecked")
@@ -214,49 +220,26 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private void jComboBoxWsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWsActionPerformed
             
         
-        
-        /*
-
         String value = (String)jComboBoxWs.getSelectedItem();
+
         
         //WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
         //WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
         //WeatherStation ws3 = new WeatherStation(1,"Hertfordshire, Hatfield",26,0.33,7,35);
         //WeatherStation ws4 = new WeatherStation(1,"London, London King's Cross",10,0.56,8,43);
         
-        jLabelWsSelected.setText(value +" Conditions : ");
-        if(value == " Weather Station 1"){
-            jLabelGPS.setText(" GPS Position : " + ws1.getGps());
-            jLabelTemp.setText(" temperature : " + ws1.getTemperature());
-            jLabelHumid.setText(" humidity : " + ws1.getHumidity());
-            jLabelSoil.setText(" soilPH : " + ws1.getSoilPH());
-            jLabelWind.setText(" windSpeed : " + ws1.getWindSpeed());
+        if(value != null)
+        {
+        jLabelWsSelected.setText(value +" Conditions : Fucking Sunny m8");
+            jLabelGPS.setText(" GPS Position : " + weatherStations.get(value)[0]+ " , " + weatherStations.get(value)[1]);
+            jLabelTemp.setText(" temperature : " + weatherStations.get(value)[2]);
+            jLabelHumid.setText(" humidity : " +weatherStations.get(value)[3]);
+            jLabelSoil.setText(" soilPH : " + weatherStations.get(value)[4]);
+            jLabelWind.setText(" windSpeed : " + weatherStations.get(value)[5]);    
+            System.out.println(weatherStations.toString());
         }
-        if(value == " Weather Station 2"){
-            jLabelGPS.setText(" GPS Position : " + ws2.getGps());
-            jLabelTemp.setText(" temperature : " + ws2.getTemperature());
-            jLabelHumid.setText(" humidity : " + ws2.getHumidity());
-            jLabelSoil.setText(" soilPH : " + ws2.getSoilPH());
-            jLabelWind.setText(" windSpeed : " + ws2.getWindSpeed());
-        }
-        if(value == " Weather Station 3"){
-            jLabelGPS.setText(" GPS Position : " + ws1.getGps());
-            jLabelTemp.setText(" temperature : " + ws3.getTemperature());
-            jLabelHumid.setText(" humidity : " + ws3.getHumidity());
-            jLabelSoil.setText(" soilPH : " + ws3.getSoilPH());
-            jLabelWind.setText(" windSpeed : " + ws3.getWindSpeed());
-        }
-        if(value == " Weather Station 4"){
-            jLabelGPS.setText(" GPS Position : " );
-            jLabelTemp.setText(" temperature : " );
-            jLabelHumid.setText(" humidity : " );
-            jLabelSoil.setText(" soilPH : " );
-            jLabelWind.setText(" windSpeed : " );
-        }     
     }//GEN-LAST:event_jComboBoxWsActionPerformed
-
-*/
-    }   
+   
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
             
@@ -347,7 +330,9 @@ class ServerHandler implements Runnable
                     int[] data = {Integer.parseInt(requestArray[2]),
                         Integer.parseInt(requestArray[3]),
                         Integer.parseInt(requestArray[4]),
-                        Integer.parseInt(requestArray[5])
+                        Integer.parseInt(requestArray[5]),
+                        Integer.parseInt(requestArray[6]),
+                        Integer.parseInt(requestArray[7])
                         };
                     SystemSoftwareForm.updateStationData(key, data);
                 }
