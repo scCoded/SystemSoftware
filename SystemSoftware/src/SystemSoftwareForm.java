@@ -236,7 +236,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
             jLabelHumid.setText(" humidity : " +weatherStations.get(value)[3]);
             jLabelSoil.setText(" soilPH : " + weatherStations.get(value)[4]);
             jLabelWind.setText(" windSpeed : " + weatherStations.get(value)[5]);    
-            System.out.println(weatherStations.toString());
         }
     }//GEN-LAST:event_jComboBoxWsActionPerformed
    
@@ -367,5 +366,5 @@ class ServerHandler implements Runnable
                 e.printStackTrace();
             }
         }
-    }
+    }   
 }
