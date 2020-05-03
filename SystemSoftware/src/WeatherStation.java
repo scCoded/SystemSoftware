@@ -7,8 +7,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 import java.util.Arrays;
-
-
+import java.util.concurrent.TimeUnit;
+import java.util.List;
+import java.util.Random; 
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WeatherStation {
     private static String ID;
@@ -20,16 +23,6 @@ public class WeatherStation {
     private static int windSpeed;
     
     WeatherStation(){
-    
-    //WeatherStation(int stationNumber,String gps,int temperature,double humidity,int soilPH,int windSpeed){
-        /*
-        this.stationNumber = stationNumber;
-        this.gps = gps;
-        this.temperature = temperature;
-        this.humidity = humidity;
-        this.soilPH = soilPH;
-        this.windSpeed = windSpeed;
-        */
         
         
         this.stationNumber = (int)(Math.random() * 100);
@@ -48,6 +41,8 @@ public class WeatherStation {
     public static void main (String args[]) throws UnknownHostException, IOException
     {
         WeatherStation thisObj = new WeatherStation();
+        thisObj.startRunning();
+        
         ID = "station" + stationNumber;
         String host = "127.0.0.1";
         int port = 3000;
@@ -109,7 +104,7 @@ public class WeatherStation {
         return humidity;
     }
 
-    public void setHumidity(double humidity) {
+    public void setHumidity(int humidity) {
         //this.humidity = humidity;
     }
 
@@ -127,5 +122,32 @@ public class WeatherStation {
 
     public void setWindSpeed(int windSpeed) {
         this.windSpeed = windSpeed;
+    }
+    
+    private void startRunning() {
+        new Timer(true).scheduleAtFixedRate(new TimerTask() {
+        @Override
+        public void run() {
+            randomUpdate();
+        }   
+    }, 0L, 10000L);
+  } 
+    public void randomUpdate() {
+        List<String> parameters = Arrays.asList("temperature", "humidity", "soilPH", "windSpeed");
+        Random rand = new Random(); 
+        String selectedParameter = parameters.get(rand.nextInt(parameters.size())); 
+        if(selectedParameter == "temperature"){
+            setTemperature((int)(Math.random() * 100));
+        }
+        if(selectedParameter == "humidity"){
+            setHumidity((int)(Math.random() * 100));
+        }
+        if(selectedParameter == "soilPH"){
+            setSoilPH((int)(Math.random() * 100));
+        }
+        if(selectedParameter == "windSpeed"){
+            setWindSpeed((int)(Math.random() * 100));
+        }
+        
     }
 }
