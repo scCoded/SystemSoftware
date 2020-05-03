@@ -9,14 +9,14 @@ import java.util.concurrent.Executors;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import java.util.*;
 
 public class Server 
 {
     private static ArrayList<ClientHandler> clients = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(10);
     
-    static Map<String, int[]> stationData;
+    public static Map<String, int[]> stationData;
         
     public static void main(String args[]) throws IOException
     {
@@ -25,7 +25,7 @@ public class Server
         
         ServerSocket server = null;
 
-        int[] data = {5,4,3,4,5};
+        int[] data = {5,4,3,4,5,4,5,6};
         thisObj.addStationData("station1", data);
         
         int stationData[] = thisObj.getStationData("station1");
@@ -34,6 +34,7 @@ public class Server
         updateStationData("station1",0,420);
         int stationDataUpdated[] = thisObj.getStationData("station1");      
         System.out.println("data for station" + java.util.Arrays.toString(stationDataUpdated));
+        
         try {
             server = new ServerSocket(3000);
             server.setReuseAddress(true);
@@ -70,7 +71,7 @@ public class Server
     
     public static void addStationData(String key)
     {
-        int[] data = {0,0,0,0,0} ;
+        int[] data = {0,0,0,0,0,0,0,0,0,0} ;
         addStationData(key, data);
     }
     
@@ -128,6 +129,7 @@ class ClientHandler implements Runnable
         out = new PrintWriter(client.getOutputStream(), true);   
     }
     
+    
     @Override
     public void run()
     {
@@ -135,12 +137,12 @@ class ClientHandler implements Runnable
         {
             
             
-            String request;
+            String request = " ";
             String[] requestArray = {};
             
             while ((request = in.readLine()) != null)
             {
-                System.out.printf("Request from the client: %s\n", request);
+                System.out.printf("Request from the client: ", request);
                 requestArray = request.split(",");
                 
                 
@@ -182,11 +184,27 @@ class ClientHandler implements Runnable
                     int newValue = Integer.parseInt(requestArray[3]);
                     Server.updateStationData(key, index, newValue);
                 }
+                else if (requestArray[0].equals("requestAllStationData"))
+                {
+                    Iterator it = Server.stationData.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry)it.next();
+                        String key = (String)pair.getKey();
+                        int[] values = (int[])pair.getValue();
+                 
+                        String hello = ("updateStationData," + key + "," + values[0] + "," + values[1] + "," + values[2] + "," + values[3] + "," + values[4] + "," + values[5]);
+                        out.println(hello);
+                        it.remove(); // avoids a ConcurrentModificationException
+                    }
+                    
+                    
+                    
+                }
                 else
                 {
                     out.println("request not found");
                 }
-                    
+                
                     
                 
             }           

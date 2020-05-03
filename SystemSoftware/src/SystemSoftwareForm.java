@@ -7,15 +7,43 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.*;
 
 public class SystemSoftwareForm extends javax.swing.JFrame {
 
+    private static Map<String,int[]> weatherStations = new HashMap<>();
+    private static ExecutorService pool = Executors.newFixedThreadPool(2);
+    
+    
+    
     public SystemSoftwareForm() {
         initComponents();
         jComboBoxWs.setSelectedItem(null);
         jLabelWsSelected.setText(" No Weather Station Selected"); 
+    }
+
+    public static void main(String args[])
+    {
+                java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                
+                new SystemSoftwareForm().setVisible(true);
+            }
+            
+        });
+    }
+    
+   public static void updateStationData(String key, int[] data)
+    {
+        weatherStations.put(key, data);
+        System.out.println("slot for ID " + key + " has been added to the server map");  
     }
 
 
@@ -219,244 +247,26 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
             
         connect.setEnabled(false);
         
-        String host = "127.0.0.1";
-        int port = 3000;
-        try (Socket socket = new Socket("localhost", port))
-        {
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
+        Socket socket = null;
+        try {
+            String host = "127.0.0.1";
+            socket = new Socket("localhost", 3000);
+            
+            System.out.println("socket open");
+            
+            ServerHandler serverThread = new ServerHandler(socket);
+            pool.execute(serverThread);
+            
+            
+            
         } catch (IOException e)
         {
             e.printStackTrace();
         }
         
-        
-        /*
-        String value = (String)jComboBoxWs.getSelectedItem();
-  
-        // refresh temperature, humidity, soilPH, windspeed
-
-         Random rand = new Random();
-         int newTempDiff = rand.nextInt(3);
-         int addSubTemp = rand.nextInt(2);
-         
-         int temp = ws1.getTemperature();
-         int temp2 = ws2.getTemperature();
-         int temp3 = ws3.getTemperature();
-         int temp4 = ws4.getTemperature();
-         
-         double newHumdityDiff = rand.nextDouble()*(0.1*(0.20-0.01) + 0.1);
-         int addSubHumdity = rand.nextInt(2);
-         double humid = ws1.getHumidity();
-         double humid2 = ws2.getHumidity();
-         double humid3 = ws3.getHumidity();
-         double humid4 = ws4.getHumidity();
-         
-         int newSoilPH = rand.nextInt(3);
-         int addSubSoil = rand.nextInt(2);
-         int soil = ws1.getSoilPH();
-         int soil2 = ws2.getSoilPH();
-         int soil3 = ws3.getSoilPH();
-         int soil4 = ws4.getSoilPH();
-         
-         int newWindSpeed = rand.nextInt(3);
-         int addSubWindSpeed = rand.nextInt(2);
-         int windSpeed = ws1.getWindSpeed();
-         int windSpeed2 = ws2.getWindSpeed();
-         int windSpeed3 = ws3.getWindSpeed();
-         int windSpeed4 = ws4.getWindSpeed();
-         
-         
-        if (value == " Weather Station 1") {    
-            if(addSubTemp == 0){
-             //Decrease temperature
-             temp = temp - newTempDiff;
-         }else{
-             //Increase temperature
-             temp = temp + newTempDiff;
-         }
-            
-            ws1.setTemperature(temp);
-            jLabelTemp.setText(" Temperature : " + ws1.getTemperature());
-            
-            if (addSubHumdity ==0){
-             //Decreases humdity
-             humid = humid - newHumdityDiff;
-            }else {
-             //Increase humdity 
-             humid = humid + newHumdityDiff;
-         }
-         ws1.setHumidity(humid);
-         jLabelHumid.setText(" Humidity : " + ws1.getHumidity());
-         
-         if (addSubSoil ==0){
-             //Decreases Soil PH
-             soil = soil - newSoilPH;
-            }else {
-             //Increase Soil PH 
-             soil = soil + newSoilPH;
-         }
-         ws1.setSoilPH(soil);
-         jLabelSoil.setText(" SoilPH : " + ws1.getSoilPH());
-         
-         if (addSubWindSpeed ==0){
-             //Decreases wind speed
-             windSpeed = windSpeed - newWindSpeed;
-            }else {
-             //Increase wind speed
-             windSpeed = windSpeed + newWindSpeed;
-         }
-         ws1.setWindSpeed(windSpeed);
-         jLabelWind.setText(" Wind Speed : " + ws1.getWindSpeed());
-        }
-        else if(value == " Weather Station 2")
-        {  
-            if(addSubTemp == 0){
-             //Decrease temperature
-             temp2 = temp2 - newTempDiff;
-         }else{
-             //Increase temperature
-             temp2 = temp2 + newTempDiff;
-         }
-         ws2.setTemperature(temp2);
-         jLabelTemp.setText(" Temperature : " + ws2.getTemperature());
-         
-         if (addSubHumdity ==0){
-             //Decreases humdity
-             humid2 = humid2 - newHumdityDiff;
-            }else {
-             //Increase humdity 
-             humid2 = humid2 + newHumdityDiff;
-         }
-         ws2.setHumidity(humid2);
-         jLabelHumid.setText(" Humidity : " + ws2.getHumidity());
-         
-         if (addSubSoil ==0){
-             //Decreases Soil PH
-             soil2 = soil2 - newSoilPH;
-            }else {
-             //Increase Soil PH 
-             soil2 = soil2 + newSoilPH;
-         }
-         ws2.setSoilPH(soil2);
-         jLabelSoil.setText(" SoilPH : " + ws2.getSoilPH());
-         
-          if (addSubWindSpeed ==0){
-             //Decreases wind speed
-             windSpeed2 = windSpeed2 - newWindSpeed;
-            }else {
-             //Increase wind speed
-             windSpeed2 = windSpeed2 + newWindSpeed;
-         }
-         ws2.setWindSpeed(windSpeed2);
-         jLabelWind.setText(" Wind Speed : " + ws2.getWindSpeed()); 
-        }
-        else if(value == " Weather Station 3")
-        {    
-            if(addSubTemp == 0){
-             //Decrease temperature
-             temp3 = temp3 - newTempDiff;
-         }else{
-             //Increase temperature
-             temp3 = temp3 + newTempDiff;
-         }
-         ws3.setTemperature(temp3);
-         jLabelTemp.setText(" Temperature : " + ws3.getTemperature());
-         
- 
-         if (addSubHumdity ==0){
-             //Decreases humdity
-             humid3 = humid3 - newHumdityDiff;
-            }else {
-             //Increase humdity 
-             humid3 = humid3 + newHumdityDiff;
-         }
-         ws3.setHumidity(humid3);
-         jLabelHumid.setText(" Humidity : " + ws3.getHumidity());
-         
-            if (addSubSoil ==0){
-             //Decreases Soil PH
-             soil3 = soil3 - newSoilPH;
-            }else {
-             //Increase Soil PH 
-             soil3 = soil3 + newSoilPH;
-         }
-         ws3.setSoilPH(soil3);
-         
-         jLabelSoil.setText(" SoilPH : " + ws3.getSoilPH());
-         
-          if (addSubWindSpeed ==0){
-             //Decreases wind speed
-             windSpeed3 = windSpeed3 - newWindSpeed;
-            }else {
-             //Increase wind speed
-             windSpeed3 = windSpeed3 + newWindSpeed;
-         }
-         ws3.setWindSpeed(windSpeed3);
-         jLabelWind.setText(" Wind Speed : " + ws3.getWindSpeed());
-         
-        }
-        else if(value == " Weather Station 4")
-        {     
-            if(addSubTemp == 0){
-             //Decrease temperature
-             temp4 = temp4 - newTempDiff;
-         }else{
-             //Increase temperature
-             temp4 = temp4 + newTempDiff;
-         }
-         ws4.setTemperature(temp4);
-         jLabelTemp.setText(" Temperature : " + ws4.getTemperature());
-         if (addSubHumdity ==0){
-             //Decreases humdity
-             humid4 = humid4 - newHumdityDiff;
-            }else {
-             //Increase humdity 
-             humid4 = humid4 + newHumdityDiff;
-         }
-         ws4.setHumidity(humid4);
-         jLabelHumid.setText(" Humidity : " + ws4.getHumidity());
-         
-         if (addSubSoil ==0){
-             //Decreases Soil PH
-             soil4 = soil4 - newSoilPH;
-            }else {
-             //Increase Soil PH 
-             soil4 = soil4 + newSoilPH;
-         }
-         ws4.setSoilPH(soil4);
-         
-         jLabelSoil.setText(" SoilPH : " + ws4.getSoilPH());
-         
-          if (addSubWindSpeed ==0){
-             //Decreases wind speed
-             windSpeed4 = windSpeed4 - newWindSpeed;
-            }else {
-             //Increase wind speed
-             windSpeed4 = windSpeed4 + newWindSpeed;
-         }
-         ws4.setWindSpeed(windSpeed4);
-         jLabelWind.setText(" Wind Speed : " + ws4.getWindSpeed());
-        */
-//        }
     }//GEN-LAST:event_connectActionPerformed
-//    
-
+ 
     
-    
-    public static void main(String args[])
-    {
-                java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-                new SystemSoftwareForm().setVisible(true);
-            }
-            
-        });
-    }
-    
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connect;
@@ -472,4 +282,90 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
+}
+
+
+
+
+class ServerHandler implements Runnable 
+{
+    private Socket server;
+    private BufferedReader in;
+    private PrintWriter out;
+    
+    
+    public ServerHandler(Socket serverSocket) throws IOException 
+    {
+        this.server = serverSocket;
+        in = new BufferedReader(new InputStreamReader(server.getInputStream()));
+        out = new PrintWriter(server.getOutputStream(), true);   
+    }
+    
+    public void requestAll() {
+        System.out.printf("request all begun:");
+        out.println("requestAllStationData");
+        
+    }
+    
+    
+    @Override
+    public void run()
+    {
+        System.out.printf("Thread begun:");
+        try 
+        {
+            String request;
+            String[] requestArray = {};
+            
+            requestAll();
+            
+            while ((request = in.readLine()) != null)
+            {
+                System.out.printf("Request from the server: ", request);
+                requestArray = request.split(",");
+                
+                
+
+                if (requestArray[0].equals("updateStationData"))
+                {
+                    String key = requestArray[1];
+                    int[] data = {Integer.parseInt(requestArray[2]),
+                        Integer.parseInt(requestArray[3]),
+                        Integer.parseInt(requestArray[4]),
+                        Integer.parseInt(requestArray[5])
+                        };
+                    SystemSoftwareForm.updateStationData(key, data);
+                }
+                else
+                {
+                    //out.println("request not found");
+                }
+                    
+                    
+                
+            }           
+        }
+        catch (IOException e)
+        {
+        e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                if (out != null)
+                {
+                    out.close();
+                }
+                if (in != null)
+                {
+                    in.close();
+                    server.close();
+                }   
+            }catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 }
