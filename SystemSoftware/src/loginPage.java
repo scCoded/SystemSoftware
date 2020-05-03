@@ -118,11 +118,10 @@ public class loginPage extends javax.swing.JFrame {
                        
                         if(user[0].equals(userText) && user[1].equals(passText))
                         {
-                            SystemSoftwareForm.runner(null);
+                            SystemSoftwareForm.main(null);
                             this.dispose();
                             found = true;
                             break;
-     
                         }
                     }
                     if(!found)
@@ -166,7 +165,7 @@ public class loginPage extends javax.swing.JFrame {
                        
                         if(user[0].equals(userText) && user[1].equals(passText))
                         {
-                            SystemSoftwareForm.runner(null);
+                            SystemSoftwareForm.main(null);
                             this.dispose();
                             found = true;
                             break;

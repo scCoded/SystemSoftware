@@ -16,29 +16,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         initComponents();
         jComboBoxWs.setSelectedItem(null);
         jLabelWsSelected.setText(" No Weather Station Selected"); 
-            
-      String host = "178.62.9.119";
-        int port = 3000;
-        try (Socket socket = new Socket("localhost", port))
-        {
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            Scanner scanner = new Scanner(System.in);
-            String line = null;
-            
-            
-            while (!"exit".equalsIgnoreCase(line))
-            {
-                line = scanner.nextLine();
-                out.println(line);
-                out.flush();
-                System.out.println("Server replied " + in.readLine());
-            }
-            scanner.close();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
     }
 
 
@@ -54,9 +31,9 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelHumid = new javax.swing.JLabel();
         jLabelWind = new javax.swing.JLabel();
         jLabelSoil = new javax.swing.JLabel();
-        refresh = new javax.swing.JButton();
+        connect = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jComboBoxWs = new javax.swing.JComboBox<String>();
+        jComboBoxWs = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -95,10 +72,10 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelSoil.setText(" Soil PH :");
         jLabelSoil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        refresh.setText("Refresh");
-        refresh.addActionListener(new java.awt.event.ActionListener() {
+        connect.setText("Connect");
+        connect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshActionPerformed(evt);
+                connectActionPerformed(evt);
             }
         });
 
@@ -117,7 +94,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                     .addComponent(jLabelWind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(refresh)))
+                        .addComponent(connect)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -136,13 +113,13 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelWind, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(refresh)
+                .addComponent(connect)
                 .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
+        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
         jComboBoxWs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxWsActionPerformed(evt);
@@ -194,9 +171,10 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void jComboBoxWsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWsActionPerformed
-        /*String value = (String)jComboBoxWs.getSelectedItem();
+            /*
+
+        String value = (String)jComboBoxWs.getSelectedItem();
         
         //WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
         //WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
@@ -231,15 +209,30 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
             jLabelHumid.setText(" humidity : " );
             jLabelSoil.setText(" soilPH : " );
             jLabelWind.setText(" windSpeed : " );
-        }
-       
+        }     
     }//GEN-LAST:event_jComboBoxWsActionPerformed
 
+*/
+    }   
 
-   
+    private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
+            
+        connect.setEnabled(false);
+        
+        String host = "127.0.0.1";
+        int port = 3000;
+        try (Socket socket = new Socket("localhost", port))
+        {
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-        // TODO add your handling code here:
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        
+        
+        /*
         String value = (String)jComboBoxWs.getSelectedItem();
   
         // refresh temperature, humidity, soilPH, windspeed
@@ -445,23 +438,28 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
          }
          ws4.setWindSpeed(windSpeed4);
          jLabelWind.setText(" Wind Speed : " + ws4.getWindSpeed());
-        }
-    */  
-    }//GEN-LAST:event_refreshActionPerformed
-    
-    public static void runner(String args[]) {
+        */
+//        }
+    }//GEN-LAST:event_connectActionPerformed
+//    
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    
+    
+    public static void main(String args[])
+    {
+                java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
                 new SystemSoftwareForm().setVisible(true);
             }
+            
         });
-
-    
     }
     
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton connect;
     private javax.swing.JComboBox<String> jComboBoxWs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelGPS;
@@ -473,6 +471,5 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JButton refresh;
     // End of variables declaration//GEN-END:variables
 }
