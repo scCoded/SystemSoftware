@@ -1,5 +1,4 @@
 
-import java.util.Random;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,6 +26,8 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         initComponents();
         jComboBoxWs.setSelectedItem(null);
         jLabelWsSelected.setText(" No Weather Station Selected"); 
+        
+        
     }
 
     public static void main(String args[])
@@ -200,7 +201,17 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxWsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWsActionPerformed
-            /*
+            
+        
+        
+        for( Map.Entry<String,WeatherStation> entry: weatherStations.entrySet()){
+             
+            System.out.println("hello");
+            
+         }
+        
+        
+        /*
 
         String value = (String)jComboBoxWs.getSelectedItem();
         
