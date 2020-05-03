@@ -1,14 +1,17 @@
 
-import java.util.Random;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Scanner;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+
+
+
+
 
 public class SystemSoftwareForm extends javax.swing.JFrame {
 
@@ -16,8 +19,11 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         initComponents();
         jComboBoxWs.setSelectedItem(null);
         jLabelWsSelected.setText(" No Weather Station Selected"); 
+        
+        
     }
 
+    Map<String,WeatherStation> weatherStations = new HashMap <>();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -172,7 +178,17 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxWsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWsActionPerformed
-            /*
+            
+        
+        
+        for( Map.Entry<String,WeatherStation> entry: weatherStations.entrySet()){
+             
+            System.out.println("hello");
+            
+         }
+        
+        
+        /*
 
         String value = (String)jComboBoxWs.getSelectedItem();
         
