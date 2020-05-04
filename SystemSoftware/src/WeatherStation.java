@@ -23,19 +23,7 @@ public class WeatherStation extends Thread{
     private static int humidity;
     private static int soilPH;
     private static int windSpeed;
-    
-
-    public static class MyThread extends Thread {
-
-    @Override
-    public void run(){
-        WeatherStation w = new WeatherStation();
-        w.startRunning();
-        System.out.println("hi");
-    }
-  }
-    
-    
+   
     WeatherStation(){
         
         

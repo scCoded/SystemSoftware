@@ -49,12 +49,19 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
    
    public static void updateComboBox()
    {
+       String value = (String)jComboBoxWs.getSelectedItem();
+       int i = 0;
         List<String> stations = new ArrayList();
              for( Map.Entry<String,int[]> entry: weatherStations.entrySet()){
-                  stations.add(entry.getKey());   
+                  stations.add(entry.getKey()); 
+                  if(value == entry.getKey()){
+                      jComboBoxWs.setSelectedIndex(i);
+                  }
+                  i++;
               }
-              jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel( stations.toArray()));
+              jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel( stations.toArray()));  
    }
+   
    
    public static void updateGUIValues()
    {
