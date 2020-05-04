@@ -13,6 +13,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 public class WeatherStation {
     private static String ID;
     private static int stationNumber;
@@ -22,7 +23,21 @@ public class WeatherStation {
     private static int soilPH;
     private static int windSpeed;
     
+
+    public static class MyThread extends Thread {
+
+    @Override
+    public void run(){
+        WeatherStation w = new WeatherStation();
+        w.startRunning();
+        System.out.println("hi");
+    }
+  }
+    
+    
     WeatherStation(){
+        
+        
         
         
         this.stationNumber = (int)(Math.random() * 100);
@@ -38,10 +53,14 @@ public class WeatherStation {
         return stationNumber;
     }
     
+
+    
     public static void main (String args[]) throws UnknownHostException, IOException
     {
         WeatherStation thisObj = new WeatherStation();
         //thisObj.startRunning();
+        
+
         
         ID = "station" + stationNumber;
         String host = "127.0.0.1";
@@ -56,8 +75,9 @@ public class WeatherStation {
             System.out.println(hello);
             out.println(hello);
             
+             MyThread myThread = new MyThread();
+             myThread.start();
 
-            
             scanner.close();
         } catch (IOException e)
         {
@@ -118,7 +138,7 @@ public class WeatherStation {
         this.windSpeed = windSpeed;
     }
     
-    private void startRunning() {
+    public void startRunning() {
         new Timer(true).scheduleAtFixedRate(new TimerTask() {
         @Override
         public void run() {
@@ -142,6 +162,11 @@ public class WeatherStation {
         if(selectedParameter == "windSpeed"){
             setWindSpeed((int)(Math.random() * 100));
         }
-        
     }
+    
+
+
+
 }
+
+
