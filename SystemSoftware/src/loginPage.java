@@ -5,8 +5,16 @@ import javax.swing.JOptionPane;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class loginPage extends javax.swing.JFrame {
+    
+     
 
     /**
      * Creates new form loginPage
@@ -88,7 +96,7 @@ public class loginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameBoxActionPerformed
 
     private void loginBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtn1ActionPerformed
-               if(usernameBox.getText().trim().isEmpty())
+        if(usernameBox.getText().trim().isEmpty())
         {      
           if(passwordBox.getPassword().length==0)
           {
@@ -148,49 +156,44 @@ public class loginPage extends javax.swing.JFrame {
 
     private void passwordBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordBoxKeyPressed
          if(evt.getKeyCode() == KeyEvent.VK_ENTER){ 
-              if(passwordBox.getPassword().length!=0)  //if password not empty checks file txt
-            {
-                String csvFile = (System.getProperty("user.dir") + "/users.txt");
-                String line = "";
-                String cvsSplitBy = ",";
+             if(usernameBox.getText().trim().isEmpty())
+        {      
+          if(passwordBox.getPassword().length==0)
+          {
+              JOptionPane.showMessageDialog(null, "ERROR : Username and Password empty! ");
+          }
+          else
+          {
+              JOptionPane.showMessageDialog(null, "ERROR : Username empty! ");
+          }
+        }
+        else
+        {      
+              if(passwordBox.getPassword().length!=0)  //if password not empty checks file txt      
+        {      
                 String passText = new String(passwordBox.getPassword());
                 String userText = new String(usernameBox.getText());
+                
                 boolean found = false;
-                try (BufferedReader csvReader = new BufferedReader(new FileReader(csvFile)))
-                {
-                    while ((line = csvReader.readLine()) != null)
-                    {
-                        String[] user = line.split(cvsSplitBy);
-                       
-                       
-                        if(user[0].equals(userText) && user[1].equals(passText))
+                
+                        if(Server.user[0].equals(userText) && Server.user[1].equals(passText))
                         {
                             SystemSoftwareForm.main(null);
                             this.dispose();
                             found = true;
-                            break;
-     
                         }
-                    }
-                    if(!found)
+                    if(found = false)
                     {
                         JOptionPane.showMessageDialog(null, "ERROR : Invalid credentials! ");
                         passwordBox.setText("");
                         usernameBox.setText("");
-                    }
-
-                    
-               
-                } catch (IOException e) {        
-                    e.printStackTrace();
-                }
-               
-               
+                    }  
             }
             else
             {
                JOptionPane.showMessageDialog(null, "ERROR : Password empty! ");
             }
+           }     
          }
     }//GEN-LAST:event_passwordBoxKeyPressed
 
@@ -198,13 +201,22 @@ public class loginPage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws UnknownHostException, IOException
+    {
+        InetAddress inetAddress = InetAddress.getLocalHost();
+        String host = "178.62.9.119";
+        System.out.println(host);
+        int port = 3000;
+        try (Socket socket = new Socket("localhost", port))
+        {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new loginPage().setVisible(true);
             }
         });
+    }  
     }
+      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;

@@ -14,12 +14,15 @@ import java.util.*;
 public class Server 
 {
     private static ArrayList<ClientHandler> clients = new ArrayList<>();
+    public static String[] user;
     private static ExecutorService pool = Executors.newFixedThreadPool(10);
     
     public static Map<String, int[]> stationData;
         
     public static void main(String args[]) throws IOException
     {
+        
+        loginAuth();
         Server thisObj = new Server();
         thisObj.stationData = new HashMap<>();
         
@@ -38,7 +41,7 @@ public class Server
         try {
             server = new ServerSocket(3000);
             server.setReuseAddress(true);
-            System.out.println("Server started"); //when the server is first ran, this message is printed.         
+            System.out.println("Server started"); //when the server is first ran, this message is printed. 
             while(true)
             {
                 System.out.println("Waiting for client");
@@ -108,6 +111,24 @@ public class Server
         return data;
     }
     
+    public static void loginAuth() throws FileNotFoundException, IOException
+    {
+        String csvFile = (System.getProperty("user.dir") + "/users.txt");
+                String line = "";
+                String cvsSplitBy = ",";
+                
+                boolean found = false;
+                try (BufferedReader csvReader = new BufferedReader(new FileReader(csvFile)))
+                {
+                    while ((line = csvReader.readLine()) != null)
+                    {
+                         user  = line.split(cvsSplitBy);
+                         System.out.println(Arrays.toString(user));
+                    }
+                }
+                
+               
+    }
     
     
     
