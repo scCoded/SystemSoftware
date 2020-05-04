@@ -14,20 +14,18 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SystemSoftwareForm extends javax.swing.JFrame {
 
     private static Map<String,int[]> weatherStations = new HashMap<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(2);
-    
-    
-    
+
     public SystemSoftwareForm() {
         initComponents();
         jComboBoxWs.setSelectedItem(null);
-        jLabelWsSelected.setText(" No Weather Station Selected"); 
-        
-        
+        jLabelWsSelected.setText(" No Weather Station Selected");    
     }
 
     public static void main(String args[])
@@ -36,8 +34,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
             public void run() {
                 
                 new SystemSoftwareForm().setVisible(true);
-            }
-            
+            } 
         });
     }
     
@@ -47,6 +44,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         System.out.println("slot for ID " + key + " has been added to the server map");  
         
         updateComboBox();
+        updateGUIValues();
     }
    
    public static void updateComboBox()
@@ -58,12 +56,18 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
               jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel( stations.toArray()));
    }
    
-   public static void updateData()
+   public static void updateGUIValues()
    {
+       String value = (String)jComboBoxWs.getSelectedItem();
        
-       
+       jLabelGPS.setText(" GPS Position : " + weatherStations.get(value)[0]+ " , " + weatherStations.get(value)[1]);
+       jLabelTemp.setText(" temperature : " + weatherStations.get(value)[2]);
+       jLabelHumid.setText(" humidity : " +weatherStations.get(value)[3]);
+       jLabelSoil.setText(" soilPH : " + weatherStations.get(value)[4]);
+       jLabelWind.setText(" windSpeed : " + weatherStations.get(value)[5]);    
+        
    }
-
+   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -223,6 +227,8 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         String value = (String)jComboBoxWs.getSelectedItem();
 
         
+        
+        
         //WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
         //WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
         //WeatherStation ws3 = new WeatherStation(1,"Hertfordshire, Hatfield",26,0.33,7,35);
@@ -230,13 +236,9 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         
         if(value != null)
         {
-        jLabelWsSelected.setText(value +" Conditions : Fucking Sunny m8");
-            jLabelGPS.setText(" GPS Position : " + weatherStations.get(value)[0]+ " , " + weatherStations.get(value)[1]);
-            jLabelTemp.setText(" temperature : " + weatherStations.get(value)[2]);
-            jLabelHumid.setText(" humidity : " +weatherStations.get(value)[3]);
-            jLabelSoil.setText(" soilPH : " + weatherStations.get(value)[4]);
-            jLabelWind.setText(" windSpeed : " + weatherStations.get(value)[5]);    
-            System.out.println(weatherStations.toString());
+            jLabelWsSelected.setText(value +" Conditions : XXX");
+            updateGUIValues();
+            
         }
     }//GEN-LAST:event_jComboBoxWsActionPerformed
    
@@ -270,12 +272,12 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private javax.swing.JButton connect;
     private static javax.swing.JComboBox<String> jComboBoxWs;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelGPS;
-    private javax.swing.JLabel jLabelHumid;
-    private javax.swing.JLabel jLabelSoil;
-    private javax.swing.JLabel jLabelTemp;
-    private javax.swing.JLabel jLabelWind;
-    private javax.swing.JLabel jLabelWsSelected;
+    private static javax.swing.JLabel jLabelGPS;
+    private static javax.swing.JLabel jLabelHumid;
+    private static javax.swing.JLabel jLabelSoil;
+    private static javax.swing.JLabel jLabelTemp;
+    private static javax.swing.JLabel jLabelWind;
+    private static javax.swing.JLabel jLabelWsSelected;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -283,15 +285,12 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 }
 
 
-
-
 class ServerHandler implements Runnable 
 {
     private Socket server;
     private BufferedReader in;
-    private PrintWriter out;
-    
-    
+    private static PrintWriter out;
+
     public ServerHandler(Socket serverSocket) throws IOException 
     {
         this.server = serverSocket;
@@ -299,12 +298,11 @@ class ServerHandler implements Runnable
         out = new PrintWriter(server.getOutputStream(), true);   
     }
     
-    public void requestAll() {
+    public static void requestAll() {
         System.out.printf("request all begun:");
         out.println("requestAllStationData");
 
     }
-    
     
     @Override
     public void run()
@@ -315,7 +313,8 @@ class ServerHandler implements Runnable
             String request;
             String[] requestArray = {};
             
-            requestAll();
+            requestTimer timer = new requestTimer();
+            timer.start();
             
             while ((request = in.readLine()) != null)
             {
@@ -367,5 +366,21 @@ class ServerHandler implements Runnable
                 e.printStackTrace();
             }
         }
-    }
+    }   
 }
+
+class requestTimer extends Thread {
+    
+    public void run(){
+       try {
+           
+       while(true){
+               WeatherSensor.sleep(12000);
+               ServerHandler.requestAll();
+           }
+       
+       } catch (InterruptedException ex) {
+               Logger.getLogger(WeatherSensor.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
+  }

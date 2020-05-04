@@ -12,9 +12,10 @@ import java.util.List;
 import java.util.Random; 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-
-public class WeatherStation {
+public class WeatherStation extends Thread{
     private static String ID;
     private static int stationNumber;
     private static int[] gps = {0,0};
@@ -58,6 +59,7 @@ public class WeatherStation {
     public static void main (String args[]) throws UnknownHostException, IOException
     {
         WeatherStation thisObj = new WeatherStation();
+        boolean on = true;
         //thisObj.startRunning();
         
 
@@ -68,20 +70,25 @@ public class WeatherStation {
         try (Socket socket = new Socket("localhost", port))
         {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner scanner = new Scanner(System.in);
             printData();
+            
+            WeatherSensor sensor = new WeatherSensor();
+            sensor.start();
+            
+            while(on) {
             String hello = ("addStationData2," + ID + "," + (gps[0]) + "," + (gps[1]) + "," + temperature + "," + humidity + "," + soilPH + "," + windSpeed);
             System.out.println(hello);
             out.println(hello);
-            
-             MyThread myThread = new MyThread();
-             myThread.start();
+            WeatherStation.sleep(12000);
+            }
 
             scanner.close();
         } catch (IOException e)
         {
             e.printStackTrace();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(WeatherStation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
     
@@ -134,7 +141,7 @@ public class WeatherStation {
         return windSpeed;
     }
 
-    public void setWindSpeed(int windSpeed) {
+    public   void setWindSpeed(int windSpeed) {
         this.windSpeed = windSpeed;
     }
     
@@ -146,21 +153,21 @@ public class WeatherStation {
         }   
     }, 0L, 10000L);
   } 
-    public void randomUpdate() {
+    public static void randomUpdate() {
         List<String> parameters = Arrays.asList("temperature", "humidity", "soilPH", "windSpeed");
         Random rand = new Random(); 
         String selectedParameter = parameters.get(rand.nextInt(parameters.size())); 
         if(selectedParameter == "temperature"){
-            setTemperature((int)(Math.random() * 100));
+            temperature = ((int)(Math.random() * 100));
         }
         if(selectedParameter == "humidity"){
-            setHumidity((int)(Math.random() * 100));
+            humidity = ((int)(Math.random() * 100));
         }
         if(selectedParameter == "soilPH"){
-            setSoilPH((int)(Math.random() * 100));
+            soilPH = ((int)(Math.random() * 100));
         }
         if(selectedParameter == "windSpeed"){
-            setWindSpeed((int)(Math.random() * 100));
+            windSpeed = (int)(Math.random() * 100);
         }
     }
     
@@ -169,4 +176,20 @@ public class WeatherStation {
 
 }
 
-
+class WeatherSensor extends Thread {
+    
+    public void run(){
+       System.out.println("My sensors are on now");
+       try {
+           
+       while(true){
+           
+               WeatherStation.randomUpdate();
+               WeatherSensor.sleep(10000);
+           }
+       
+       } catch (InterruptedException ex) {
+               Logger.getLogger(WeatherSensor.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
+  }
