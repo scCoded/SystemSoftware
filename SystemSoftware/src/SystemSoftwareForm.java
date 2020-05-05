@@ -21,7 +21,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
     private static Map<String,int[]> weatherStations = new HashMap<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(2);
-    public String[] User = new String[2];
+    public static String[] User = new String[2];
     public static String hi;
 
     loginPage loginPage;
@@ -360,6 +360,14 @@ class ServerHandler implements Runnable
 
     }
     
+        public static void requestLogin(){
+            String username = SystemSoftwareForm.User[0];
+            String password = SystemSoftwareForm.User[1];
+            
+            System.out.printf("request login:");
+            out.println("requestCredentials," + username+ "," + password);
+        }
+    
     @Override
     public void run()
     {
@@ -373,6 +381,7 @@ class ServerHandler implements Runnable
             String request;
             String[] requestArray = {};
             
+            requestLogin();
             requestTimer timer = new requestTimer();
             timer.start();
             
@@ -395,6 +404,16 @@ class ServerHandler implements Runnable
                         };
                     SystemSoftwareForm.updateStationData(key, data);
                 }
+                
+                 else if(requestArray[0].equals("ACCEPT")){
+                    
+                }
+                
+                 else if(requestArray[0].equals("DECLINE")){
+                     
+                }
+
+                
                 else
                 {
                     //out.println("request not found");
