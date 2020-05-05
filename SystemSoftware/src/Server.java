@@ -14,7 +14,7 @@ import java.util.*;
 public class Server 
 {
     private static ArrayList<ClientHandler> clients = new ArrayList<>();
-    public static String[] user;
+    public static ArrayList<String []> users = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(10);
     
     public static Map<String, int[]> stationData;
@@ -23,6 +23,7 @@ public class Server
     {
         
         loginAuth();
+//        System.out.println(users.);
         Server thisObj = new Server();
         thisObj.stationData = new HashMap<>();
         
@@ -30,7 +31,6 @@ public class Server
 
         int[] data = {5,4,3,4,5,4,5,6};
         thisObj.addStationData("station1", data);
-        
         int stationData[] = thisObj.getStationData("station1");
         System.out.println("data for station" + java.util.Arrays.toString(stationData));
 
@@ -116,6 +116,7 @@ public class Server
         String csvFile = (System.getProperty("user.dir") + "/users.txt");
                 String line = "";
                 String cvsSplitBy = ",";
+                String[] user = null;
                 
                 boolean found = false;
                 try (BufferedReader csvReader = new BufferedReader(new FileReader(csvFile)))
@@ -123,7 +124,9 @@ public class Server
                     while ((line = csvReader.readLine()) != null)
                     {
                          user  = line.split(cvsSplitBy);
-                         System.out.println(Arrays.toString(user));
+                         System.out.println(java.util.Arrays.toString(user));
+                         users.add(user);
+                         
                     }
                 }
                 
@@ -219,9 +222,30 @@ class ClientHandler implements Runnable
                     }
                     it.remove(); // avoids a ConcurrentModificationException
                     
+                 
                     
                     
-                    
+                }
+else if (requestArray[0].equals("requestCredentials")){
+                    boolean found = false;
+                    for(int i = 0; i<Server.users.size();i++){
+                            
+                           String[] credentials = Server.users.get(i);
+                           String username = credentials[0];
+                           String password = credentials[1];
+
+                           
+                           
+                        if(username.equals(requestArray[1]) && password.equals(requestArray[2])){
+                           found = true;
+                        }
+                    }
+                   if(found){
+                        out.println("ACCEPT");
+                   }
+                   else{
+                       out.println("DECLINE");
+                   }
                 }
                 else
                 {

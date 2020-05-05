@@ -21,8 +21,13 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
     private static Map<String,int[]> weatherStations = new HashMap<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(2);
+    public String[] User = new String[2];
+    public static String hi;
 
+    loginPage loginPage;
+    
     public SystemSoftwareForm() {
+        
         initComponents();
         jComboBoxWs.setSelectedItem(null);
         jLabelWsSelected.setText(" No Weather Station Selected");    
@@ -30,12 +35,25 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
     public static void main(String args[])
     {
+        
                 java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                connectSocket();
+                hi = "Accept";
                 
-                new SystemSoftwareForm().setVisible(true);
+             loginPage login = new loginPage(null);
+             login.setVisible(true);
+
+                  
+                  
+                
             } 
         });
+    }
+    
+    public static void runningMan(String args[])
+    {
+        new SystemSoftwareForm().setVisible(true);
     }
     
    public static void updateStationData(String key, int[] data)
@@ -254,7 +272,36 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
             
         connect.setEnabled(false);
         
-        Socket socket = null;
+        hi = "Accept";
+        
+        
+     
+
+
+//        this.setVisible(false);
+//        
+//        Socket socket = null;
+//        try {
+//            String host = "127.0.0.1";
+//            socket = new Socket("localhost", 3000);
+//            
+//            System.out.println("socket open");
+//            
+//            ServerHandler serverThread = new ServerHandler(socket);
+//            pool.execute(serverThread);
+//            
+//            
+//            
+//        } catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//        
+    }//GEN-LAST:event_connectActionPerformed
+ 
+    private static void connectSocket()
+    {
+               Socket socket = null;
         try {
             String host = "127.0.0.1";
             socket = new Socket("localhost", 3000);
@@ -270,9 +317,10 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         {
             e.printStackTrace();
         }
-        
-    }//GEN-LAST:event_connectActionPerformed
- 
+    }
+    
+    
+
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -305,6 +353,7 @@ class ServerHandler implements Runnable
         out = new PrintWriter(server.getOutputStream(), true);   
     }
     
+    
     public static void requestAll() {
         System.out.printf("request all begun:");
         out.println("requestAllStationData");
@@ -314,6 +363,10 @@ class ServerHandler implements Runnable
     @Override
     public void run()
     {
+        String [] users = {};
+        
+        
+        
         System.out.printf("Thread begun:");
         try 
         {

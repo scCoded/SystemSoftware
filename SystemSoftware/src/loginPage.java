@@ -5,23 +5,23 @@ import javax.swing.JOptionPane;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Scanner;
 
 public class loginPage extends javax.swing.JFrame {
     
-     
-
+     String reply;
+    
     /**
      * Creates new form loginPage
      */
-    public loginPage() {
+    SystemSoftwareForm SystemSoftwareForm;
+    
+    public loginPage(SystemSoftwareForm s) {
+        
+        
         initComponents();
+        SystemSoftwareForm = s;
         this.setLocationRelativeTo(null);//center form in the screen
+        
     }
 
 
@@ -102,6 +102,7 @@ public class loginPage extends javax.swing.JFrame {
           {
               JOptionPane.showMessageDialog(null, "ERROR : Username and Password empty! ");
           }
+         
           else
           {
               JOptionPane.showMessageDialog(null, "ERROR : Username empty! ");
@@ -156,66 +157,78 @@ public class loginPage extends javax.swing.JFrame {
 
     private void passwordBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordBoxKeyPressed
          if(evt.getKeyCode() == KeyEvent.VK_ENTER){ 
-             if(usernameBox.getText().trim().isEmpty())
-        {      
-          if(passwordBox.getPassword().length==0)
-          {
-              JOptionPane.showMessageDialog(null, "ERROR : Username and Password empty! ");
-          }
-          else
-          {
-              JOptionPane.showMessageDialog(null, "ERROR : Username empty! ");
-          }
-        }
-        else
-        {      
-              if(passwordBox.getPassword().length!=0)  //if password not empty checks file txt      
-        {      
-                String passText = new String(passwordBox.getPassword());
-                String userText = new String(usernameBox.getText());
-                
-                boolean found = false;
-                
-                        if(Server.user[0].equals(userText) && Server.user[1].equals(passText))
-                        {
-                            SystemSoftwareForm.main(null);
-                            this.dispose();
-                            found = true;
-                        }
-                    if(found = false)
-                    {
-                        JOptionPane.showMessageDialog(null, "ERROR : Invalid credentials! ");
-                        passwordBox.setText("");
-                        usernameBox.setText("");
-                    }  
-            }
-            else
+//             if(usernameBox.getText().trim().isEmpty())
+//        {      
+//          if(passwordBox.getPassword().length==0)
+//          {
+//              JOptionPane.showMessageDialog(null, "ERROR : Username and Password empty! ");
+//          }
+//          else
+//          {
+//              JOptionPane.showMessageDialog(null, "ERROR : Username empty! ");
+//          }
+//        }
+//        else
+//        {      
+//              if(passwordBox.getPassword().length!=0)  //if password not empty checks file txt      
+//        {      
+//                String passText = new String(passwordBox.getPassword());
+//                String userText = new String(usernameBox.getText());
+//                
+//                boolean found = false;
+//                
+//                        if(Server.user[0].equals(userText) && Server.user[1].equals(passText))
+//                        {
+//                            SystemSoftwareForm.main(null);
+//                            this.dispose();
+//                            found = true;
+//                        }
+//                    if(found = false)
+//                    {
+//                        JOptionPane.showMessageDialog(null, "ERROR : Invalid credentials! ");
+//                        passwordBox.setText("");
+//                        usernameBox.setText("");
+//                    }  
+//            }
+//            else
+//            {
+//               JOptionPane.showMessageDialog(null, "ERROR : Password empty! ");
+//            }
+//           }     
+//            SystemSoftwareForm.User[0] = this.usernameBox.getText();
+//            SystemSoftwareForm.User[1] = this.passwordBox.getText();
+            
+            reply = SystemSoftwareForm.hi;
+            
+            if (reply == "Accept")
             {
-               JOptionPane.showMessageDialog(null, "ERROR : Password empty! ");
+                SystemSoftwareForm.runningMan(null);
+                this.setVisible(false);
             }
-           }     
+            
+            if(reply == "Decline")
+          {
+              JOptionPane.showMessageDialog(null, "WOZZAAAAAA ");
+          }
          }
     }//GEN-LAST:event_passwordBoxKeyPressed
 
+        public void postData()
+    {
+       
+    }
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws UnknownHostException, IOException
+    public static void main(String args[])
     {
-        InetAddress inetAddress = InetAddress.getLocalHost();
-        String host = "178.62.9.119";
-        System.out.println(host);
-        int port = 3000;
-        try (Socket socket = new Socket("localhost", port))
-        {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new loginPage().setVisible(true);
+//                new loginPage().setVisible(true);
             }
         });
     }  
-    }
       
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
