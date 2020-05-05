@@ -9,6 +9,7 @@ import java.io.IOException;
 public class loginPage extends javax.swing.JFrame {
     
      String reply;
+     public static boolean pleaseWork = false;
     
     /**
      * Creates new form loginPage
@@ -42,7 +43,7 @@ public class loginPage extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(350, 280));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        usernameBox.setText("Username");
+        usernameBox.setText("asdsas");
         usernameBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameBoxActionPerformed(evt);
@@ -50,7 +51,12 @@ public class loginPage extends javax.swing.JFrame {
         });
         getContentPane().add(usernameBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 96, 123, -1));
 
-        passwordBox.setText("..............");
+        passwordBox.setText("asdas");
+        passwordBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordBoxActionPerformed(evt);
+            }
+        });
         passwordBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 passwordBoxKeyPressed(evt);
@@ -157,65 +163,35 @@ public class loginPage extends javax.swing.JFrame {
 
     private void passwordBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordBoxKeyPressed
          if(evt.getKeyCode() == KeyEvent.VK_ENTER){ 
-//             if(usernameBox.getText().trim().isEmpty())
-//        {      
-//          if(passwordBox.getPassword().length==0)
-//          {
-//              JOptionPane.showMessageDialog(null, "ERROR : Username and Password empty! ");
-//          }
-//          else
-//          {
-//              JOptionPane.showMessageDialog(null, "ERROR : Username empty! ");
-//          }
-//        }
-//        else
-//        {      
-//              if(passwordBox.getPassword().length!=0)  //if password not empty checks file txt      
-//        {      
-//                String passText = new String(passwordBox.getPassword());
-//                String userText = new String(usernameBox.getText());
-//                
-//                boolean found = false;
-//                
-//                        if(Server.user[0].equals(userText) && Server.user[1].equals(passText))
-//                        {
-//                            SystemSoftwareForm.main(null);
-//                            this.dispose();
-//                            found = true;
-//                        }
-//                    if(found = false)
-//                    {
-//                        JOptionPane.showMessageDialog(null, "ERROR : Invalid credentials! ");
-//                        passwordBox.setText("");
-//                        usernameBox.setText("");
-//                    }  
-//            }
-//            else
-//            {
-//               JOptionPane.showMessageDialog(null, "ERROR : Password empty! ");
-//            }
-//           }     
-//            SystemSoftwareForm.User[0] = this.usernameBox.getText();
-//            SystemSoftwareForm.User[1] = this.passwordBox.getText();
+ 
+            pleaseWork = true;
             
-            reply = SystemSoftwareForm.hi;
+            SystemSoftwareForm.User[0] = this.usernameBox.getText();
+            SystemSoftwareForm.User[1] = this.passwordBox.getText();
+       
+            reply = SystemSoftwareForm.serverReply;
             
-            if (reply == "Accept")
+            if (reply == "ACCEPT")
             {
                 SystemSoftwareForm.runningMan(null);
                 this.setVisible(false);
             }
             
-            if(reply == "Decline")
+            if(reply == "DECLINE")
           {
-              JOptionPane.showMessageDialog(null, "WOZZAAAAAA ");
+              JOptionPane.showMessageDialog(null, "Incorrect login details");
           }
          }
     }//GEN-LAST:event_passwordBoxKeyPressed
 
-        public void postData()
+    private void passwordBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordBoxActionPerformed
+
+        public static void beGone()
     {
-       
+      loginPage login = new loginPage(null);
+                login.setVisible(false);
     }
     
     /**

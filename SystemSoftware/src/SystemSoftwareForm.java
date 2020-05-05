@@ -1,5 +1,5 @@
 
-
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,83 +16,73 @@ import java.util.concurrent.Executors;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class SystemSoftwareForm extends javax.swing.JFrame {
 
-    private static Map<String,int[]> weatherStations = new HashMap<>();
+    private static Map<String, int[]> weatherStations = new HashMap<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(2);
     public static String[] User = new String[2];
-    public static String hi;
+    public static String serverReply = null;
 
     loginPage loginPage;
-    
+
     public SystemSoftwareForm() {
-        
+
         initComponents();
         jComboBoxWs.setSelectedItem(null);
-        jLabelWsSelected.setText(" No Weather Station Selected");    
+        jLabelWsSelected.setText(" No Weather Station Selected");
     }
 
-    public static void main(String args[])
-    {
-        
-                java.awt.EventQueue.invokeLater(new Runnable() {
+    public static void main(String args[]) {
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 connectSocket();
-                hi = "Accept";
-                
-             loginPage login = new loginPage(null);
-             login.setVisible(true);
 
-                  
-                  
-                
-            } 
+                loginPage login = new loginPage(null);
+                login.setVisible(true);
+
+            }
         });
     }
-    
-    public static void runningMan(String args[])
-    {
+
+    public static void runningMan(String args[]) {
         new SystemSoftwareForm().setVisible(true);
     }
-    
-   public static void updateStationData(String key, int[] data)
-    {
+
+    public static void updateStationData(String key, int[] data) {
         weatherStations.put(key, data);
-        System.out.println("slot for ID " + key + " has been added to the server map");  
-        
+        System.out.println("slot for ID " + key + " has been added to the server map");
+
         updateComboBox();
         updateGUIValues();
     }
-   
-   public static void updateComboBox()
-   {
-       String value = (String)jComboBoxWs.getSelectedItem();
-       int i = 0;
+
+    public static void updateComboBox() {
+        String value = (String) jComboBoxWs.getSelectedItem();
+        int i = 0;
         List<String> stations = new ArrayList();
-             for( Map.Entry<String,int[]> entry: weatherStations.entrySet()){
-                  stations.add(entry.getKey()); 
-                  if(value == entry.getKey()){
-                      jComboBoxWs.setSelectedIndex(i);
-                  }
-                  i++;
-              }
-              jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel( stations.toArray()));  
-   }
-   
-   
-   public static void updateGUIValues()
-   {
-       String value = (String)jComboBoxWs.getSelectedItem();
-       
-       jLabelGPS.setText(" GPS Position : " + weatherStations.get(value)[0]+ " , " + weatherStations.get(value)[1]);
-       jLabelTemp.setText(" temperature : " + weatherStations.get(value)[2]);
-       jLabelHumid.setText(" humidity : " +weatherStations.get(value)[3]);
-       jLabelSoil.setText(" soilPH : " + weatherStations.get(value)[4]);
-       jLabelWind.setText(" windSpeed : " + weatherStations.get(value)[5]);    
-        
-   }
-   
+        for (Map.Entry<String, int[]> entry : weatherStations.entrySet()) {
+            stations.add(entry.getKey());
+            if (value == entry.getKey()) {
+                jComboBoxWs.setSelectedIndex(i);
+            }
+            i++;
+        }
+        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(stations.toArray()));
+    }
+
+    public static void updateGUIValues() {
+        String value = (String) jComboBoxWs.getSelectedItem();
+
+        jLabelGPS.setText(" GPS Position : " + weatherStations.get(value)[0] + " , " + weatherStations.get(value)[1]);
+        jLabelTemp.setText(" temperature : " + weatherStations.get(value)[2]);
+        jLabelHumid.setText(" humidity : " + weatherStations.get(value)[3]);
+        jLabelSoil.setText(" soilPH : " + weatherStations.get(value)[4]);
+        jLabelWind.setText(" windSpeed : " + weatherStations.get(value)[5]);
+
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -247,36 +237,24 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxWsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxWsActionPerformed
-            
-        
-        String value = (String)jComboBoxWs.getSelectedItem();
 
-        
-        
-        
+        String value = (String) jComboBoxWs.getSelectedItem();
+
         //WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
         //WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
         //WeatherStation ws3 = new WeatherStation(1,"Hertfordshire, Hatfield",26,0.33,7,35);
         //WeatherStation ws4 = new WeatherStation(1,"London, London King's Cross",10,0.56,8,43);
-        
-        if(value != null)
-        {
-            jLabelWsSelected.setText(value +" Conditions : XXX");
+        if (value != null) {
+            jLabelWsSelected.setText(value + " Conditions : XXX");
             updateGUIValues();
-            
+
         }
     }//GEN-LAST:event_jComboBoxWsActionPerformed
-   
+
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
-            
-        connect.setEnabled(false);
-        
-        hi = "Accept";
-        
-        
-     
 
+        connect.setEnabled(false);
 
 //        this.setVisible(false);
 //        
@@ -298,31 +276,24 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 //        }
 //        
     }//GEN-LAST:event_connectActionPerformed
- 
-    private static void connectSocket()
-    {
-               Socket socket = null;
+
+    private static void connectSocket() {
+        Socket socket = null;
         try {
             String host = "127.0.0.1";
             socket = new Socket("localhost", 3000);
-            
+
             System.out.println("socket open");
-            
+
             ServerHandler serverThread = new ServerHandler(socket);
             pool.execute(serverThread);
-            
-            
-            
-        } catch (IOException e)
-        {
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-    
 
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connect;
     private static javax.swing.JComboBox<String> jComboBoxWs;
@@ -339,61 +310,58 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 
+class ServerHandler implements Runnable {
 
-class ServerHandler implements Runnable 
-{
     private Socket server;
     private BufferedReader in;
     private static PrintWriter out;
 
-    public ServerHandler(Socket serverSocket) throws IOException 
-    {
+    public ServerHandler(Socket serverSocket) throws IOException {
         this.server = serverSocket;
         in = new BufferedReader(new InputStreamReader(server.getInputStream()));
-        out = new PrintWriter(server.getOutputStream(), true);   
+        out = new PrintWriter(server.getOutputStream(), true);
     }
-    
-    
+
     public static void requestAll() {
         System.out.printf("request all begun:");
         out.println("requestAllStationData");
 
     }
-    
-        public static void requestLogin(){
-            String username = SystemSoftwareForm.User[0];
-            String password = SystemSoftwareForm.User[1];
-            
-            System.out.printf("request login:");
-            out.println("requestCredentials," + username+ "," + password);
-        }
-    
+
+    public static void requestLogin() {
+        String username = SystemSoftwareForm.User[0];
+        String password = SystemSoftwareForm.User[1];
+
+        System.out.println(username);
+        System.out.println(password);
+
+        System.out.printf("request login:");
+        out.println("requestCredentials," + username + "," + password);
+    }
+
     @Override
-    public void run()
-    {
-        String [] users = {};
-        
-        
-        
+    public void run() {
+        String[] users = {};
+
         System.out.printf("Thread begun:");
-        try 
-        {
+        try {
             String request;
             String[] requestArray = {};
-            
-            requestLogin();
+            while (true) {
+                java.util.concurrent.TimeUnit.MILLISECONDS.sleep(20);
+                if (loginPage.pleaseWork == true) {                   
+                    requestLogin();
+                    break;
+                }
+            }
             requestTimer timer = new requestTimer();
             timer.start();
-            
-            while ((request = in.readLine()) != null)
-            {
+
+            while ((request = in.readLine()) != null) {
                 System.out.printf("Request from the server: ", request);
                 requestArray = request.split(",");
-                
-                
 
-                if (requestArray[0].equals("updateStationData"))
-                {
+                if (requestArray[0].equals("updateStationData")) {
                     String key = requestArray[1];
                     int[] data = {Integer.parseInt(requestArray[2]),
                         Integer.parseInt(requestArray[3]),
@@ -401,65 +369,51 @@ class ServerHandler implements Runnable
                         Integer.parseInt(requestArray[5]),
                         Integer.parseInt(requestArray[6]),
                         Integer.parseInt(requestArray[7])
-                        };
+                    };
                     SystemSoftwareForm.updateStationData(key, data);
-                }
-                
-                 else if(requestArray[0].equals("ACCEPT")){
-                    
-                }
-                
-                 else if(requestArray[0].equals("DECLINE")){
-                     
-                }
-
-                
-                else
-                {
+                } else if (requestArray[0].equals("ACCEPT")) {
+                    SystemSoftwareForm.serverReply = "ACCEPT";
+                    System.out.println(SystemSoftwareForm.serverReply);
+                } else if (requestArray[0].equals("DECLINE")) {
+                    SystemSoftwareForm.serverReply = "DECLINE";
+                    System.out.println(SystemSoftwareForm.serverReply);
+                } else {
                     //out.println("request not found");
                 }
-                    
-                    
-                
-            }           
-        }
-        catch (IOException e)
-        {
-        e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                if (out != null)
-                {
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ServerHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (out != null) {
                     out.close();
                 }
-                if (in != null)
-                {
+                if (in != null) {
                     in.close();
                     server.close();
-                }   
-            }catch(IOException e)
-            {
+                }
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-    }   
+    }
 }
 
 class requestTimer extends Thread {
-    
-    public void run(){
-       try {
-           
-       while(true){
-               WeatherSensor.sleep(12000);
-               ServerHandler.requestAll();
-           }
-       
-       } catch (InterruptedException ex) {
-               Logger.getLogger(WeatherSensor.class.getName()).log(Level.SEVERE, null, ex);
-       }
+
+    public void run() {
+        try {
+
+            while (true) {
+                WeatherSensor.sleep(12000);
+                ServerHandler.requestAll();
+            }
+
+        } catch (InterruptedException ex) {
+            Logger.getLogger(WeatherSensor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-  }
+}

@@ -233,11 +233,17 @@ else if (requestArray[0].equals("requestCredentials")){
                            String[] credentials = Server.users.get(i);
                            String username = credentials[0];
                            String password = credentials[1];
+//                           System.out.println(username);
+//                           System.out.println(password);
+                           
+                           System.out.println(requestArray[1]);
+                           System.out.println(requestArray[2]);
 
                            
                            
                         if(username.equals(requestArray[1]) && password.equals(requestArray[2])){
                            found = true;
+                           
                         }
                     }
                    if(found){
