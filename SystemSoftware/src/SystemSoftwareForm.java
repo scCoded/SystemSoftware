@@ -1,14 +1,10 @@
 
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
@@ -16,7 +12,6 @@ import java.util.concurrent.Executors;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class SystemSoftwareForm extends javax.swing.JFrame {
 
@@ -96,7 +91,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelHumid = new javax.swing.JLabel();
         jLabelWind = new javax.swing.JLabel();
         jLabelSoil = new javax.swing.JLabel();
-        connect = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jComboBoxWs = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -137,13 +131,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelSoil.setText(" Soil PH :");
         jLabelSoil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        connect.setText("Connect");
-        connect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                connectActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -156,10 +143,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                     .addComponent(jLabelTemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelHumid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelSoil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelWind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(connect)))
+                    .addComponent(jLabelWind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -177,9 +161,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 .addComponent(jLabelSoil, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelWind, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(connect)
-                .addContainerGap())
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -252,36 +234,11 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxWsActionPerformed
 
 
-    private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
-
-        connect.setEnabled(false);
-
-//        this.setVisible(false);
-//        
-//        Socket socket = null;
-//        try {
-//            String host = "127.0.0.1";
-//            socket = new Socket("localhost", 3000);
-//            
-//            System.out.println("socket open");
-//            
-//            ServerHandler serverThread = new ServerHandler(socket);
-//            pool.execute(serverThread);
-//            
-//            
-//            
-//        } catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
-//        
-    }//GEN-LAST:event_connectActionPerformed
-
     private static void connectSocket() {
         Socket socket = null;
         try {
-            String host = "127.0.0.1";
-            socket = new Socket("localhost", 3000);
+            String host = "178.62.9.119";
+            socket = new Socket(host, 3000);
 
             System.out.println("socket open");
 
@@ -295,7 +252,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton connect;
     private static javax.swing.JComboBox<String> jComboBoxWs;
     private javax.swing.JLabel jLabel1;
     private static javax.swing.JLabel jLabelGPS;
@@ -349,7 +305,7 @@ class ServerHandler implements Runnable {
             String[] requestArray = {};
             while (true) {
                 java.util.concurrent.TimeUnit.MILLISECONDS.sleep(20);
-                if (loginPage.pleaseWork == true) {                   
+                if (loginPage.pleaseWork == true) {
                     requestLogin();
                     break;
                 }

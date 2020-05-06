@@ -1,30 +1,25 @@
 
-
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 public class loginPage extends javax.swing.JFrame {
-    
-     String reply;
-     public static boolean pleaseWork = false;
-    
+
+    String reply;
+    public static boolean pleaseWork = false;
+
     /**
      * Creates new form loginPage
      */
     SystemSoftwareForm SystemSoftwareForm;
-    
+
     public loginPage(SystemSoftwareForm s) {
-        
-        
+
         initComponents();
         SystemSoftwareForm = s;
         this.setLocationRelativeTo(null);//center form in the screen
-        
-    }
 
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,28 +36,20 @@ public class loginPage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 233));
         setPreferredSize(new java.awt.Dimension(350, 280));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        usernameBox.setText("asdsas");
+        usernameBox.setText("Username");
         usernameBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(usernameBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 96, 123, -1));
 
-        passwordBox.setText("asdas");
-        passwordBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordBoxActionPerformed(evt);
-            }
-        });
+        passwordBox.setText("..............");
         passwordBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 passwordBoxKeyPressed(evt);
             }
         });
-        getContentPane().add(passwordBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 130, -1));
 
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -70,17 +57,13 @@ public class loginPage extends javax.swing.JFrame {
                 cancelBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 130, -1));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("         Login");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 160, -1));
 
         jLabel2.setText("Password:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 70, 20));
 
         jLabel4.setText("Username:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
 
         loginBtn1.setText("Login");
         loginBtn1.addActionListener(new java.awt.event.ActionListener() {
@@ -88,13 +71,59 @@ public class loginPage extends javax.swing.JFrame {
                 loginBtn1ActionPerformed(evt);
             }
         });
-        getContentPane().add(loginBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 178, 130, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jLabel4)
+                .addGap(9, 9, 9)
+                .addComponent(usernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(loginBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel1)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel4))
+                    .addComponent(usernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(loginBtn1)
+                .addGap(8, 8, 8)
+                .addComponent(cancelBtn))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        System. exit(0);
+        System.exit(0);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void usernameBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameBoxActionPerformed
@@ -102,110 +131,78 @@ public class loginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameBoxActionPerformed
 
     private void loginBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtn1ActionPerformed
-        if(usernameBox.getText().trim().isEmpty())
-        {      
-          if(passwordBox.getPassword().length==0)
-          {
-              JOptionPane.showMessageDialog(null, "ERROR : Username and Password empty! ");
-          }
-         
-          else
-          {
-              JOptionPane.showMessageDialog(null, "ERROR : Username empty! ");
-          }
-        }
-        else
-        {      
-            if(passwordBox.getPassword().length!=0)  //if password not empty checks file txt
-            {
-                String csvFile = (System.getProperty("user.dir") + "/users.txt");
-                String line = "";
-                String cvsSplitBy = ",";
-                String passText = new String(passwordBox.getPassword());
-                String userText = new String(usernameBox.getText());
-                boolean found = false;
-                try (BufferedReader csvReader = new BufferedReader(new FileReader(csvFile)))
-                {
-                    while ((line = csvReader.readLine()) != null)
-                    {
-                        String[] user = line.split(cvsSplitBy);
-                       
-                       
-                        if(user[0].equals(userText) && user[1].equals(passText))
-                        {
-                            SystemSoftwareForm.main(null);
-                            this.dispose();
-                            found = true;
-                            break;
-                        }
-                    }
-                    if(!found)
-                    {
-                        JOptionPane.showMessageDialog(null, "ERROR : Invalid credentials! ");
-                        passwordBox.setText("");
-                        usernameBox.setText("");
-                    }
 
-                    
-               
-                } catch (IOException e) {        
-                    e.printStackTrace();
-                }
-               
-               
+        if (passwordBox.getPassword().length != 0) //if password not empty checks file txt
+        {
+
+            pleaseWork = true;
+
+            SystemSoftwareForm.User[0] = this.usernameBox.getText();
+            SystemSoftwareForm.User[1] = this.passwordBox.getText();
+            
+             try {
+                java.util.concurrent.TimeUnit.MILLISECONDS.sleep(20);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else
-            {
-               JOptionPane.showMessageDialog(null, "ERROR : Password empty! ");
+
+            reply = SystemSoftwareForm.serverReply;
+
+            if (reply == "ACCEPT") {
+                SystemSoftwareForm.runningMan(null);
+                this.setVisible(false);
+            }
+
+            if (reply == "DECLINE") {
+                JOptionPane.showMessageDialog(null, "Incorrect login details");
             }
         }
     }//GEN-LAST:event_loginBtn1ActionPerformed
 
     private void passwordBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordBoxKeyPressed
-         if(evt.getKeyCode() == KeyEvent.VK_ENTER){ 
- 
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
             pleaseWork = true;
-            
+
             SystemSoftwareForm.User[0] = this.usernameBox.getText();
             SystemSoftwareForm.User[1] = this.passwordBox.getText();
-       
+            
+            
+            
             reply = SystemSoftwareForm.serverReply;
             
-            if (reply == "ACCEPT")
-            {
+            try {
+                java.util.concurrent.TimeUnit.MILLISECONDS.sleep(20);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (reply == "ACCEPT") {
                 SystemSoftwareForm.runningMan(null);
                 this.setVisible(false);
             }
-            
-            if(reply == "DECLINE")
-          {
-              JOptionPane.showMessageDialog(null, "Incorrect login details");
-          }
-         }
+
+            if (reply == "DECLINE") {
+                JOptionPane.showMessageDialog(null, "Incorrect login details");
+            }
+        }
     }//GEN-LAST:event_passwordBoxKeyPressed
 
     private void passwordBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordBoxActionPerformed
 
-        public static void beGone()
-    {
-      loginPage login = new loginPage(null);
-                login.setVisible(false);
-    }
-    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 //                new loginPage().setVisible(true);
             }
         });
-    }  
-      
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
