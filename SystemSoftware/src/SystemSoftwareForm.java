@@ -91,6 +91,8 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelHumid = new javax.swing.JLabel();
         jLabelWind = new javax.swing.JLabel();
         jLabelSoil = new javax.swing.JLabel();
+        jLabelWind1 = new javax.swing.JLabel();
+        jLabelWind2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jComboBoxWs = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -128,8 +130,14 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelWind.setText(" Wind Speed : ");
         jLabelWind.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabelSoil.setText(" Soil PH :");
+        jLabelSoil.setText("Rain Measurement : ");
         jLabelSoil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelWind1.setText("Visibility  : ");
+        jLabelWind1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelWind2.setText("Chance of Rain (in next Hour) : ");
+        jLabelWind2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,7 +151,9 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                     .addComponent(jLabelTemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelHumid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelSoil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelWind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelWind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelWind1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelWind2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -161,7 +171,11 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 .addComponent(jLabelSoil, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelWind, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelWind1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelWind2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -259,6 +273,8 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private static javax.swing.JLabel jLabelSoil;
     private static javax.swing.JLabel jLabelTemp;
     private static javax.swing.JLabel jLabelWind;
+    private static javax.swing.JLabel jLabelWind1;
+    private static javax.swing.JLabel jLabelWind2;
     private static javax.swing.JLabel jLabelWsSelected;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
