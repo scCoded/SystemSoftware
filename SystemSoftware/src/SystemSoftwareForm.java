@@ -20,8 +20,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     public static String[] User = new String[2];
     public static String serverReply = null;
 
-    loginPage loginPage;
-
     public SystemSoftwareForm() {
 
         initComponents();
@@ -256,7 +254,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private static void connectSocket() {
         Socket socket = null;
         try {
-            String host = "178.62.9.119";
+            String host = /*"178.62.9.119"*/"localhost";
             socket = new Socket(host, 3000);
 
             System.out.println("socket open");
@@ -308,9 +306,6 @@ class ServerHandler implements Runnable {
     public static void requestLogin() {
         String username = SystemSoftwareForm.User[0];
         String password = SystemSoftwareForm.User[1];
-
-        System.out.println(username);
-        System.out.println(password);
 
         System.out.printf("request login:");
         out.println("requestCredentials," + username + "," + password);

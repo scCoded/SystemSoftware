@@ -169,7 +169,7 @@ class ClientHandler implements Runnable {
                         String key = (String) pair.getKey();
                         int[] values = (int[]) pair.getValue();
 
-                        String hello = ("updateStationData," + key + "," + values[0] + "," + values[1] + "," + values[2] + "," + values[3] + "," + values[4] + "," + values[5] + "," + values[6] + "," + values[7] + "," + values[8]);
+                        String hello = ("updateStationData," + key + "," + values[0] + "," + values[1] + "," + values[2] + "," + values[3] + "," + values[4] + "," + values[5] + "," + values[6] + "," + values[7]);
                         System.out.println(hello);
                         out.println(hello);
                     }

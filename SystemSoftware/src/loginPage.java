@@ -156,9 +156,11 @@ public class loginPage extends javax.swing.JFrame {
             if (reply == "DECLINE") {
                 SystemSoftwareForm.serverReply = null;
                 
-                System.out.println(SystemSoftwareForm.serverReply + " " + reply);
+                System.out.println(SystemSoftwareForm.serverReply);
                 
                 JOptionPane.showMessageDialog(null, "Incorrect login details");
+                
+                ServerHandler.requestLogin();
 
             }
         }
