@@ -35,7 +35,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 connectSocket();
-                
 
                 loginPage login = new loginPage(null);
                 login.setVisible(true);
@@ -46,7 +45,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
     public static void runningMan(String args[]) {
         new SystemSoftwareForm().setVisible(true);
-        
+
         try {
             requestFieldInfo();
         } catch (IOException ex) {
@@ -70,16 +69,14 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         for (Map.Entry<String, int[]> entry : weatherStations.entrySet()) {
             stations.add(entry.getKey());
             x++;
-            
+
             if (value == entry.getKey()) {
                 jComboBoxWs.setSelectedIndex(i);
             }
             i++;
         }
         jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(stations.toArray()));
-        
-        
-       
+
         jLabelNoS.setText(" Number Of Stations : " + x);
     }
 
@@ -87,13 +84,25 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         String value = (String) jComboBoxWs.getSelectedItem();
 
         jLabelGPS.setText(" GPS Position : " + weatherStations.get(value)[0] + " , " + weatherStations.get(value)[1]);
+        jLabelGPS.setToolTipText("GPS coordinates of the weather station.");
+        
         jLabelTemp.setText(" temperature : " + weatherStations.get(value)[2]);
+        jLabelTemp.setToolTipText("Temperature measured in Celsius degrees.");
+        
         jLabelHumid.setText(" humidity : " + weatherStations.get(value)[3]);
+        jLabelHumid.setToolTipText("Humidity measured in percentages.");
+        
         jLabelWind.setText(" Wind Speed : " + weatherStations.get(value)[4]);
+        jLabelWind.setToolTipText("Speed of wind measured in KM/H.");
+        
         jLabelRain.setText(" Rain Measurement : " + weatherStations.get(value)[5]);
+        jLabelRain.setToolTipText("Mililitres of rain per hour.");
+        
         jLabelVisibility.setText(" Visibility : " + weatherStations.get(value)[6]);
+        jLabelVisibility.setToolTipText("Visibility given in kilometers.");
+        
         jLabelChance.setText(" Chance of Rain(%) : " + weatherStations.get(value)[7]);
-
+        jLabelChance.setToolTipText("Chance of Rain within the next hour given in percentages.");
     }
 
     public static void requestFieldInfo() throws FileNotFoundException, IOException {
@@ -107,6 +116,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         try (BufferedReader csvReader = new BufferedReader(new FileReader(csvFile))) {
             while ((line = csvReader.readLine()) != null) {
                 field = line.split(cvsSplitBy);
+                        
 
                 fieldInfo.add(field);
             }
@@ -117,7 +127,9 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         size = Arrays.toString(fieldInfo.get(1));
 
         jLabelFieldName.setText(" Field Name : " + name);
+        jLabelFieldName.setToolTipText("This is the name of the field.");
         jLabelFieldSize.setText(" Field Name : " + size);
+        jLabelFieldSize.setToolTipText("Size of the field in hectares.");
     }
 
     @SuppressWarnings("unchecked")
