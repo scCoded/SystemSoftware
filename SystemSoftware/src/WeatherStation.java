@@ -19,8 +19,12 @@ public class WeatherStation extends Thread {
     private static int[] gps = {0, 0};
     private static int temperature;
     private static int humidity;
-    private static int soilPH;
     private static int windSpeed;
+    private static int rainMeasurement;
+    private static int visibility;
+    private static int rainChance;
+
+
 
     WeatherStation() {
 
@@ -29,8 +33,10 @@ public class WeatherStation extends Thread {
         this.gps[1] = ((int) (Math.random() * 100));
         this.temperature = (int) (Math.random() * 100);
         this.humidity = (int) (Math.random() * 100);
-        this.soilPH = (int) (Math.random() * 100);
         this.windSpeed = (int) (Math.random() * 100);
+        this.rainMeasurement = (int) (Math.random() * 100);
+        this.visibility = (int) (Math.random() * 100);
+        this.rainChance = (int) (Math.random() * 100);
     }
 
     public int getStationNumber() {
@@ -43,7 +49,7 @@ public class WeatherStation extends Thread {
         //thisObj.startRunning();
 
         ID = "station" + stationNumber;
-        String host = "178.62.9.119";
+        String host = "localhost";
         int port = 3000;
         try (Socket socket = new Socket(host, port)) {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -54,7 +60,7 @@ public class WeatherStation extends Thread {
             sensor.start();
 
             while (on) {
-                String hello = ("addStationData2," + ID + "," + (gps[0]) + "," + (gps[1]) + "," + temperature + "," + humidity + "," + soilPH + "," + windSpeed);
+                String hello = ("addStationData2," + ID + "," + (gps[0]) + "," + (gps[1]) + "," + temperature + "," + humidity + "," + windSpeed + "," +rainMeasurement + "," + visibility + "," + rainChance);
                 System.out.println(hello);
                 out.println(hello);
                 WeatherStation.sleep(12000);
@@ -73,8 +79,11 @@ public class WeatherStation extends Thread {
         System.out.println("GPS: " + Arrays.toString(WeatherStation.gps));
         System.out.println("Temp: " + WeatherStation.temperature);
         System.out.println("Hum: " + WeatherStation.humidity);
-        System.out.println("Ph: " + WeatherStation.soilPH);
         System.out.println("Wind Sp: " + WeatherStation.windSpeed);
+        System.out.println("Rain measurement: " + WeatherStation.rainMeasurement);
+        System.out.println("Visibility: " + WeatherStation.visibility);
+        System.out.println("Chance of Rain : " + WeatherStation.rainChance);
+        
     }
 
     public void setStationNumber(int stationNumber) {
@@ -105,20 +114,36 @@ public class WeatherStation extends Thread {
         //this.humidity = humidity;
     }
 
-    public int getSoilPH() {
-        return soilPH;
-    }
-
-    public void setSoilPH(int soilPH) {
-        this.soilPH = soilPH;
-    }
-
     public int getWindSpeed() {
         return windSpeed;
     }
 
     public void setWindSpeed(int windSpeed) {
         this.windSpeed = windSpeed;
+    }
+    
+    public int getRainMeasurement() {
+        return rainMeasurement;
+    }
+
+    public void setRainMeasurement(int rainMeasurement) {
+        WeatherStation.rainMeasurement = rainMeasurement;
+    }
+
+    public int getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(int visibility) {
+        WeatherStation.visibility = visibility;
+    }
+
+    public int getRainChance() {
+        return rainChance;
+    }
+
+    public void setRainChance(int rainChance) {
+        WeatherStation.rainChance = rainChance;
     }
 
     public void startRunning() {
@@ -131,7 +156,7 @@ public class WeatherStation extends Thread {
     }
 
     public static void randomUpdate() {
-        List<String> parameters = Arrays.asList("temperature", "humidity", "soilPH", "windSpeed");
+        List<String> parameters = Arrays.asList("temperature", "humidity", "windSpeed", "rainMeasurement", "visibility", "rainChance");
         Random rand = new Random();
         String selectedParameter = parameters.get(rand.nextInt(parameters.size()));
         if (selectedParameter == "temperature") {
@@ -139,13 +164,20 @@ public class WeatherStation extends Thread {
         }
         if (selectedParameter == "humidity") {
             humidity = ((int) (Math.random() * 100));
-        }
-        if (selectedParameter == "soilPH") {
-            soilPH = ((int) (Math.random() * 100));
-        }
+        }     
         if (selectedParameter == "windSpeed") {
             windSpeed = (int) (Math.random() * 100);
         }
+        if (selectedParameter == "rainMeasurement") {
+            windSpeed = (int) (Math.random() * 100);
+        }
+        if (selectedParameter == "visibility") {
+            windSpeed = (int) (Math.random() * 100);
+        }
+        if (selectedParameter == "rainChance") {
+            windSpeed = (int) (Math.random() * 100);
+        }
+        
     }
 
 }

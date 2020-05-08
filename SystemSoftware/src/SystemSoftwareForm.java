@@ -74,8 +74,13 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelGPS.setText(" GPS Position : " + weatherStations.get(value)[0] + " , " + weatherStations.get(value)[1]);
         jLabelTemp.setText(" temperature : " + weatherStations.get(value)[2]);
         jLabelHumid.setText(" humidity : " + weatherStations.get(value)[3]);
-        jLabelSoil.setText(" soilPH : " + weatherStations.get(value)[4]);
-        jLabelWind.setText(" windSpeed : " + weatherStations.get(value)[5]);
+        jLabelWind.setText(" Wind Speed : " + weatherStations.get(value)[4]);
+        jLabelRain.setText(" Rain Measurement : " + weatherStations.get(value)[5]);
+        jLabelVisibility.setText(" Visibility : " + weatherStations.get(value)[6]);
+        jLabelChance.setText(" Chance of Rain(%) : " + weatherStations.get(value)[7]);
+        
+        
+        
 
     }
 
@@ -90,11 +95,11 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelGPS = new javax.swing.JLabel();
         jLabelHumid = new javax.swing.JLabel();
         jLabelWind = new javax.swing.JLabel();
-        jLabelSoil = new javax.swing.JLabel();
-        jLabelWind1 = new javax.swing.JLabel();
-        jLabelWind2 = new javax.swing.JLabel();
+        jLabelRain = new javax.swing.JLabel();
+        jLabelChance = new javax.swing.JLabel();
+        jLabelVisibility = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBoxWs = new javax.swing.JComboBox<>();
+        jComboBoxWs = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -130,14 +135,14 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelWind.setText(" Wind Speed : ");
         jLabelWind.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabelSoil.setText("Rain Measurement : ");
-        jLabelSoil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelRain.setText("Rain Measurement:");
+        jLabelRain.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabelWind1.setText("Visibility  : ");
-        jLabelWind1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelChance.setText("Chance of Rain (%) :");
+        jLabelChance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabelWind2.setText("Chance of Rain (in next Hour) : ");
-        jLabelWind2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabelVisibility.setText("Visibility:");
+        jLabelVisibility.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,10 +155,10 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                     .addComponent(jLabelGPS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelTemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelHumid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelSoil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelRain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelWind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelWind1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelWind2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelChance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelVisibility, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -168,19 +173,19 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelHumid, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelSoil, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelWind, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelWind1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelRain, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelWind2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelVisibility, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelChance, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
+        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
         jComboBoxWs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxWsActionPerformed(evt);
@@ -251,7 +256,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private static void connectSocket() {
         Socket socket = null;
         try {
-            String host = "178.62.9.119";
+            String host = "localhost";
             socket = new Socket(host, 3000);
 
             System.out.println("socket open");
@@ -268,13 +273,13 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JComboBox<String> jComboBoxWs;
     private javax.swing.JLabel jLabel1;
+    private static javax.swing.JLabel jLabelChance;
     private static javax.swing.JLabel jLabelGPS;
     private static javax.swing.JLabel jLabelHumid;
-    private static javax.swing.JLabel jLabelSoil;
+    private static javax.swing.JLabel jLabelRain;
     private static javax.swing.JLabel jLabelTemp;
+    private static javax.swing.JLabel jLabelVisibility;
     private static javax.swing.JLabel jLabelWind;
-    private static javax.swing.JLabel jLabelWind1;
-    private static javax.swing.JLabel jLabelWind2;
     private static javax.swing.JLabel jLabelWsSelected;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -335,12 +340,15 @@ class ServerHandler implements Runnable {
 
                 if (requestArray[0].equals("updateStationData")) {
                     String key = requestArray[1];
-                    int[] data = {Integer.parseInt(requestArray[2]),
+                    int[] data = {
+                        Integer.parseInt(requestArray[2]),
                         Integer.parseInt(requestArray[3]),
                         Integer.parseInt(requestArray[4]),
                         Integer.parseInt(requestArray[5]),
                         Integer.parseInt(requestArray[6]),
-                        Integer.parseInt(requestArray[7])
+                        Integer.parseInt(requestArray[7]),
+                        Integer.parseInt(requestArray[8]),
+                        Integer.parseInt(requestArray[9])
                     };
                     SystemSoftwareForm.updateStationData(key, data);
                 } else if (requestArray[0].equals("ACCEPT")) {
