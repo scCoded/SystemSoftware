@@ -22,7 +22,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     public static String[] User = new String[2];
     public static String serverReply = null;
     public static ArrayList<String[]> fieldInfo = new ArrayList<>();
-    public static int noOfWS = 0;
 
     public SystemSoftwareForm() {
 
@@ -79,9 +78,9 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         }
         jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(stations.toArray()));
         
-        noOfWS = x;
-        System.out.println(noOfWS);
-        jLabelNoS.setText(" Number Of Stations : " + noOfWS);
+        
+       
+        jLabelNoS.setText(" Number Of Stations : " + x);
     }
 
     public static void updateGUIValues() {
