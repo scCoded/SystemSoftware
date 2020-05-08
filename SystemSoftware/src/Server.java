@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.*;
 import javax.swing.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class Server extends javax.swing.JFrame{
@@ -39,7 +40,7 @@ public class Server extends javax.swing.JFrame{
         loginAuth();
         
         Server thisObj = new Server();
-        thisObj.stationData = new HashMap<>();
+        thisObj.stationData = new ConcurrentHashMap<>();
 
         ServerSocket server = null;
         gui();
@@ -174,8 +175,12 @@ public class Server extends javax.swing.JFrame{
         }
 
     }
+    
+
 
 }
+
+
 
 class ClientHandler implements Runnable {
 

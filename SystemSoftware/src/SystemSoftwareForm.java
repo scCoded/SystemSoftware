@@ -119,8 +119,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
         try (BufferedReader csvReader = new BufferedReader(new FileReader(csvFile))) {
             while ((line = csvReader.readLine()) != null) {
-                field = line.split(cvsSplitBy);
-                        
+                field = line.split(cvsSplitBy);                      
 
                 fieldInfo.add(field);
             }
@@ -500,7 +499,7 @@ class requestTimer extends Thread {
         try {
 
             while (true) {
-                WeatherSensor.sleep(12000);
+                WeatherSensor.sleep(1000);
                 ServerHandler.requestAll();
             }
 
