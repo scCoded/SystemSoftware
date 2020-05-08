@@ -1,4 +1,4 @@
-
+import java.awt.GridLayout;
 import java.net.*;
 import java.io.*;
 import java.util.HashMap;
@@ -8,29 +8,41 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.*;
-import java.awt.*;
 import javax.swing.*;
 
 
-public class Server {
+public class Server extends javax.swing.JFrame{
 
     private static ArrayList<ClientHandler> clients = new ArrayList<>();
     public static ArrayList<String[]> users = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(10);
-   
+    
+            
+    public static int wsCount = 0;
+    public static int usersCount = 0;
+    public static String requests = "no requests yet";
+    
+    public static JFrame serverGUI;
+    public static JPanel panel;
+    public static JPanel panel2;
+    public static JPanel panel3;
+    
+    public static JLabel JLabelWeatherStations;
+    public static JLabel JLabelUsers;
+    public static JLabel JLabelRequests;
+
 
     public static Map<String, int[]> stationData;
 
     public static void main(String args[]) throws IOException {
-        
-        gui();
-        loginAuth();
 
+        loginAuth();
+        
         Server thisObj = new Server();
         thisObj.stationData = new HashMap<>();
 
         ServerSocket server = null;
-
+        gui();
         try {
             server = new ServerSocket(3000);
             server.setReuseAddress(true);
@@ -38,7 +50,8 @@ public class Server {
             while (true) {
                 System.out.println("Waiting for client");
                 Socket client = server.accept();
-                System.out.println("New client connected " + client.getInetAddress());
+                System.out.println("New client connected " + client.getInetAddress()); 
+                        
                 ClientHandler clientThread = new ClientHandler(client);
                 clients.add(clientThread);
 
@@ -56,24 +69,22 @@ public class Server {
             }
         }
     }
+
     
     
     public static void gui(){ 
+
         
-        int ws = 0;
-        int users = 0;
-        String requests = "no requests yet";
-        
-        JFrame serverGUI=new JFrame("Server GUI");
+        serverGUI=new JFrame("Server GUI");
         serverGUI.setLayout(new GridLayout(3,1));
         
-        JPanel panel =new JPanel();
-        JPanel panel2 = new JPanel();
-        JPanel panel3 = new JPanel();
+        panel = new JPanel();
+        panel2 = new JPanel();
+        panel3 = new JPanel();
         
-        JLabel JLabelWeatherStations = new JLabel("  Weather Stations connected : " + String.valueOf(ws)); 
-        JLabel JLabelUsers = new JLabel("  Users connected : " + String.valueOf(users)); 
-        JLabel JLabelRequests = new JLabel("  Current server request : " + requests); 
+        JLabelWeatherStations = new JLabel("  Weather Stations connected : " + String.valueOf(wsCount)); 
+        JLabelUsers = new JLabel("  Users connected : " + String.valueOf(usersCount)); 
+        JLabelRequests = new JLabel("  Current server request : " + requests); 
 
         panel.setLayout(new BoxLayout(panel,BoxLayout.X_AXIS));
         panel.add(JLabelWeatherStations);
@@ -90,21 +101,38 @@ public class Server {
         serverGUI.add(panel3);
         
         serverGUI.setSize(300,150);
-        //serverGUI.pack();
         serverGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         serverGUI.setVisible(true);
     } 
+   
     
+    public static void updateGuiws(){
+        JLabelWeatherStations.setText("  Weather Stations connected : " + String.valueOf(wsCount));
+        
+    }
     
+    public static void updateGuiUsers(){
+        JLabelUsers.setText("  Users connected : " + String.valueOf(usersCount));
+        
+    }
     
+    public static void updateGuiRequests(){
+        JLabelRequests.setText("  Current server request : " + requests);
+        
+    }
+    
+
     public static void addStationData(String key) {
         int[] data = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         addStationData(key, data);
+
     }
 
     public static void addStationData(String key, int[] data) {
         stationData.put(key, data);
         System.out.println("slot for ID " + key + " has been added to the server map");
+
+        
     }
 
     public static void setStationData(String key, int[] data) {
@@ -173,21 +201,26 @@ class ClientHandler implements Runnable {
             while ((request = in.readLine()) != null) {
                 System.out.printf("Request from the client: ", request);
                 requestArray = request.split(",");
+                Server.requests = requestArray[0];
+                Server.updateGuiRequests();
 
                 if (requestArray[0].equals("getStationDataPoint2")) {
                     String key = requestArray[1];
                     int index = Integer.parseInt(requestArray[2]);
                     int output = Server.getStationDataPoint(key, index);
                     out.println(output);
-                } else if (requestArray[0].equals("getStationData1")) {
+                } 
+                else if (requestArray[0].equals("getStationData1")) {
                     String key = requestArray[1];
                     int[] output = Server.getStationData(key);
                     out.println(Arrays.toString(output));
-                } else if (requestArray[0].equals("addStationData1")) {
+                } 
+                else if (requestArray[0].equals("addStationData1")) {
                     String key = requestArray[1];
                     Server.addStationData(key);
                     
                 } else if (requestArray[0].equals("addStationData2")) {
+                    
                     String key = requestArray[1];
                     int[] data = {
                         Integer.parseInt(requestArray[2]),
@@ -200,6 +233,7 @@ class ClientHandler implements Runnable {
                         Integer.parseInt(requestArray[9])
                     };
                     Server.addStationData(key, data);
+
                 } else if (requestArray[0].equals("updateStationData3")) {
                     String key = requestArray[1];
                     int index = Integer.parseInt(requestArray[2]);
@@ -207,13 +241,14 @@ class ClientHandler implements Runnable {
                     Server.updateStationData(key, index, newValue);
                     
                 } else if (requestArray[0].equals("requestAllStationData")) {
-                    
+                    Server.wsCount = Server.stationData.size();
+                    Server.updateGuiws(); 
+                    //
                     Iterator it = Server.stationData.entrySet().iterator();
                     while (it.hasNext()) {
                         Map.Entry pair = (Map.Entry) it.next();
                         String key = (String) pair.getKey();
                         int[] values = (int[]) pair.getValue();
-
                         String hello = ("updateStationData," + key + "," + values[0] + "," + values[1] + "," + values[2] + "," + values[3] + "," + values[4] + "," + values[5] + "," + values[6] + "," + values[7]);
                         System.out.println(hello);
                         out.println(hello);
@@ -235,6 +270,9 @@ class ClientHandler implements Runnable {
                     }
                     if (found) {
                         out.println("ACCEPT");
+                        Server.usersCount++;
+                        Server.updateGuiUsers();
+                        
                     } else {
                         out.println("DECLINE");
                     }
@@ -253,6 +291,8 @@ class ClientHandler implements Runnable {
                 if (in != null) {
                     in.close();
                     client.close();
+                    Server.usersCount--;
+                    Server.updateGuiUsers();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
