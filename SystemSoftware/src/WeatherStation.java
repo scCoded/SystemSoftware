@@ -194,7 +194,7 @@ class WeatherSensor extends Thread {
             while (true) {
 
                 WeatherStation.randomUpdate();
-                WeatherSensor.sleep(10000);
+                WeatherSensor.sleep(4500);
             }
 
         } catch (InterruptedException ex) {

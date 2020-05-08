@@ -47,7 +47,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         });
     }
 
-    public static void runningMan(String args[]) {
+    public static void guiSetVisible(String args[]) {
         new SystemSoftwareForm().setVisible(true);
 
         try {
@@ -88,7 +88,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         }
         jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(stations.toArray()));
 
-       //jLabelNoS.setText(" Number Of Stations : " + x);
+       jLabelNoS.setText(" Number Of Stations : " + x);
     }
 
     public static void updateGUIValues() {
@@ -123,10 +123,10 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         name = Arrays.toString(fieldInfo.get(0));
         size = Arrays.toString(fieldInfo.get(1));
 
-       /* jLabelFieldName.setText(" Field Name : " + name);
+        jLabelFieldName.setText(" Field Name : " + name);
         jLabelFieldName.setToolTipText("This is the name of the field.");
-        jLabelFieldSize.setText(" Field Name : " + size);
-        jLabelFieldSize.setToolTipText("Size of the field in hectares.");*/
+        jLabelFieldSize.setText(" Field Size : " + size);
+        jLabelFieldSize.setToolTipText("Size of the field in hectares.");
     }
 
     @SuppressWarnings("unchecked")
@@ -148,6 +148,9 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jComboBoxWs = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jLabelNoS = new javax.swing.JLabel();
+        jLabelFieldName = new javax.swing.JLabel();
+        jLabelFieldSize = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -163,33 +166,33 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabelWsSelected.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelWsSelected.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelWsSelected.setText("No Weather Station Selected");
-        jLabelWsSelected.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabelWsSelected.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabelTemp.setText(" Temperature :");
-        jLabelTemp.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabelTemp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabelGPS.setText(" GPS Position : ");
-        jLabelGPS.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabelGPS.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabelHumid.setText(" Humidity :");
-        jLabelHumid.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabelHumid.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabelWind.setText(" Wind Speed : ");
-        jLabelWind.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabelWind.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabelRain.setText("Rain Measurement:");
-        jLabelRain.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabelRain.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabelChance.setText("Chance of Rain (%) :");
-        jLabelChance.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabelChance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabelVisibility.setText("Visibility:");
-        jLabelVisibility.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabelVisibility.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         saveText.setText("Save ");
         saveText.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +257,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
         jComboBoxWs.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +269,16 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText(" Select a Weather Station");
-        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelNoS.setText("Number Of Stations : ");
+        jLabelNoS.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelFieldName.setText("Name Of Field : ");
+        jLabelFieldName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelFieldSize.setText("Size Of Field : ");
+        jLabelFieldSize.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -276,7 +288,10 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxWs, 0, 184, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelNoS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelFieldSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -286,7 +301,13 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxWs, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelFieldSize, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNoS, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -312,10 +333,6 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
         String value = (String) jComboBoxWs.getSelectedItem();
 
-        //WeatherStation ws1 = new WeatherStation(1,"Nottingham, Clifton",23,0.43,7,55);
-        //WeatherStation ws2 = new WeatherStation(1,"Nottingham, Derby",14,0.52,6,40);
-        //WeatherStation ws3 = new WeatherStation(1,"Hertfordshire, Hatfield",26,0.33,7,35);
-        //WeatherStation ws4 = new WeatherStation(1,"London, London King's Cross",10,0.56,8,43);
         if (value != null) {
             jLabelWsSelected.setText(value + " Conditions : XXX");
             updateGUIValues();
@@ -379,8 +396,11 @@ catch (IOException ex) {
     private static javax.swing.JComboBox<String> jComboBoxWs;
     private javax.swing.JLabel jLabel1;
     private static javax.swing.JLabel jLabelChance;
+    private static javax.swing.JLabel jLabelFieldName;
+    private static javax.swing.JLabel jLabelFieldSize;
     private static javax.swing.JLabel jLabelGPS;
     private static javax.swing.JLabel jLabelHumid;
+    private static javax.swing.JLabel jLabelNoS;
     private static javax.swing.JLabel jLabelRain;
     private static javax.swing.JLabel jLabelTemp;
     private static javax.swing.JLabel jLabelVisibility;
@@ -431,7 +451,7 @@ class ServerHandler implements Runnable {
             requestLogin();
             while (true) {
                 java.util.concurrent.TimeUnit.MILLISECONDS.sleep(1);
-                if (loginPage.pleaseWork == true) {
+                if (loginPage.loginValue == true) {
                     requestLogin();
                     break;
                 }
@@ -494,7 +514,7 @@ class requestTimer extends Thread {
         try {
 
             while (true) {
-                WeatherSensor.sleep(1000);
+                WeatherSensor.sleep(5000);
                 ServerHandler.requestAll();
             }
 

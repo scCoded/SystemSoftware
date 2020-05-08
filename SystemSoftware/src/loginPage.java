@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 public class loginPage extends javax.swing.JFrame {
 
     String reply;
-    public static boolean pleaseWork = false;
+    public static boolean loginValue = false;
 
     /**
      * Creates new form loginPage
@@ -149,8 +149,8 @@ public class loginPage extends javax.swing.JFrame {
             reply = SystemSoftwareForm.serverReply;
 
             if (reply == "ACCEPT") {
-                pleaseWork = true;
-                SystemSoftwareForm.runningMan(null);
+                loginValue = true;
+                SystemSoftwareForm.guiSetVisible(null);
                 this.setVisible(false);
             }
 
@@ -166,7 +166,7 @@ public class loginPage extends javax.swing.JFrame {
     private void passwordBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordBoxKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-            pleaseWork = true;
+            loginValue = true;
 
             SystemSoftwareForm.User[0] = this.usernameBox.getText();
             SystemSoftwareForm.User[1] = this.passwordBox.getText();
@@ -183,7 +183,7 @@ public class loginPage extends javax.swing.JFrame {
             
 
             if (reply == "ACCEPT") {
-                SystemSoftwareForm.runningMan(null);
+                SystemSoftwareForm.guiSetVisible(null);
                 this.setVisible(false); 
             }
 

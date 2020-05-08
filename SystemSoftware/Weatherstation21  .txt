@@ -1,0 +1,9 @@
+2020-05-08T22:48:30.936703
+ID = station21,
+GPS Position: 66,74
+Temperature: 64
+Humidity: 34
+Wind Speed: 12
+Rain Measurement: 50
+Visibility: 43
+Chance of Rain (%): 62
