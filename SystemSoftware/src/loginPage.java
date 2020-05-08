@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 public class loginPage extends javax.swing.JFrame {
 
     String reply;
-    public static boolean loginValue = false;
+    public static boolean pleaseWork = false;
 
     /**
      * Creates new form loginPage
@@ -36,7 +36,6 @@ public class loginPage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 233));
         setPreferredSize(new java.awt.Dimension(350, 280));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         usernameBox.setText("Username");
         usernameBox.addActionListener(new java.awt.event.ActionListener() {
@@ -44,7 +43,6 @@ public class loginPage extends javax.swing.JFrame {
                 usernameBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(usernameBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 96, 123, -1));
 
         passwordBox.setText("..............");
         passwordBox.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -52,7 +50,6 @@ public class loginPage extends javax.swing.JFrame {
                 passwordBoxKeyPressed(evt);
             }
         });
-        getContentPane().add(passwordBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 130, -1));
 
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -60,17 +57,13 @@ public class loginPage extends javax.swing.JFrame {
                 cancelBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 130, -1));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("         Login");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 160, -1));
 
         jLabel2.setText("Password:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 70, 20));
 
         jLabel4.setText("Username:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
 
         loginBtn1.setText("Login");
         loginBtn1.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +71,53 @@ public class loginPage extends javax.swing.JFrame {
                 loginBtn1ActionPerformed(evt);
             }
         });
-        getContentPane().add(loginBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 178, 130, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jLabel4)
+                .addGap(9, 9, 9)
+                .addComponent(usernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(loginBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel1)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel4))
+                    .addComponent(usernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(loginBtn1)
+                .addGap(8, 8, 8)
+                .addComponent(cancelBtn))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -110,7 +149,7 @@ public class loginPage extends javax.swing.JFrame {
             reply = SystemSoftwareForm.serverReply;
 
             if (reply == "ACCEPT") {
-                loginValue = true;
+                pleaseWork = true;
                 SystemSoftwareForm.runningMan(null);
                 this.setVisible(false);
             }
@@ -127,7 +166,7 @@ public class loginPage extends javax.swing.JFrame {
     private void passwordBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordBoxKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-            loginValue = true;
+            pleaseWork = true;
 
             SystemSoftwareForm.User[0] = this.usernameBox.getText();
             SystemSoftwareForm.User[1] = this.passwordBox.getText();
@@ -144,7 +183,7 @@ public class loginPage extends javax.swing.JFrame {
             
 
             if (reply == "ACCEPT") {
-                SystemSoftwareForm.guiSetVisible(null);
+                SystemSoftwareForm.runningMan(null);
                 this.setVisible(false); 
             }
 
