@@ -51,6 +51,13 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(SystemSoftwareForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jLabelGPS.setToolTipText("GPS coordinates of the weather station.");
+        jLabelTemp.setToolTipText("Temperature measured in Celsius degrees.");
+        jLabelHumid.setToolTipText("Humidity measured in percentages.");
+        jLabelWind.setToolTipText("Speed of wind measured in KM/H.");
+        jLabelRain.setToolTipText("Mililitres of rain per hour.");
+        jLabelVisibility.setToolTipText("Visibility given in kilometers.");
+        jLabelChance.setToolTipText("Chance of Rain within the next hour given in percentages.");
     }
 
     public static void updateStationData(String key, int[] data) {
@@ -84,25 +91,12 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         String value = (String) jComboBoxWs.getSelectedItem();
 
         jLabelGPS.setText(" GPS Position : " + weatherStations.get(value)[0] + " , " + weatherStations.get(value)[1]);
-        jLabelGPS.setToolTipText("GPS coordinates of the weather station.");
-        
         jLabelTemp.setText(" temperature : " + weatherStations.get(value)[2]);
-        jLabelTemp.setToolTipText("Temperature measured in Celsius degrees.");
-        
         jLabelHumid.setText(" humidity : " + weatherStations.get(value)[3]);
-        jLabelHumid.setToolTipText("Humidity measured in percentages.");
-        
         jLabelWind.setText(" Wind Speed : " + weatherStations.get(value)[4]);
-        jLabelWind.setToolTipText("Speed of wind measured in KM/H.");
-        
         jLabelRain.setText(" Rain Measurement : " + weatherStations.get(value)[5]);
-        jLabelRain.setToolTipText("Mililitres of rain per hour.");
-        
         jLabelVisibility.setText(" Visibility : " + weatherStations.get(value)[6]);
-        jLabelVisibility.setToolTipText("Visibility given in kilometers.");
-        
         jLabelChance.setText(" Chance of Rain(%) : " + weatherStations.get(value)[7]);
-        jLabelChance.setToolTipText("Chance of Rain within the next hour given in percentages.");
     }
 
     public static void requestFieldInfo() throws FileNotFoundException, IOException {
