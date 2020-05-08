@@ -94,7 +94,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     public static void updateGUIValues() {
         String value = (String) jComboBoxWs.getSelectedItem();
 
-        jLabelNoS.setText(" GPS Position : " + weatherStations.get(value)[0] + " , " + weatherStations.get(value)[1]);
+        jLabelGPS1.setText(" GPS Position : " + weatherStations.get(value)[0] + " , " + weatherStations.get(value)[1]);
         jLabelTemp.setText(" temperature : " + weatherStations.get(value)[2]);
         jLabelHumid.setText(" humidity : " + weatherStations.get(value)[3]);
         jLabelWind.setText(" Wind Speed : " + weatherStations.get(value)[4]);
