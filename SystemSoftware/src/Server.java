@@ -8,17 +8,22 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.*;
+import java.awt.*;
+import javax.swing.*;
+
 
 public class Server {
 
     private static ArrayList<ClientHandler> clients = new ArrayList<>();
     public static ArrayList<String[]> users = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(10);
+   
 
     public static Map<String, int[]> stationData;
 
     public static void main(String args[]) throws IOException {
-
+        
+        gui();
         loginAuth();
 
         Server thisObj = new Server();
@@ -51,7 +56,47 @@ public class Server {
             }
         }
     }
+    
+    
+    public static void gui(){ 
+        
+        int ws = 0;
+        int users = 0;
+        String requests = "no requests yet";
+        
+        JFrame serverGUI=new JFrame("Server GUI");
+        serverGUI.setLayout(new GridLayout(3,1));
+        
+        JPanel panel =new JPanel();
+        JPanel panel2 = new JPanel();
+        JPanel panel3 = new JPanel();
+        
+        JLabel JLabelWeatherStations = new JLabel("  Weather Stations connected : " + String.valueOf(ws)); 
+        JLabel JLabelUsers = new JLabel("  Users connected : " + String.valueOf(users)); 
+        JLabel JLabelRequests = new JLabel("  Current server request : " + requests); 
 
+        panel.setLayout(new BoxLayout(panel,BoxLayout.X_AXIS));
+        panel.add(JLabelWeatherStations);
+        
+        panel2.setLayout(new BoxLayout(panel2,BoxLayout.X_AXIS));
+        panel2.add(JLabelUsers);
+        
+        panel3.setLayout(new BoxLayout(panel3,BoxLayout.X_AXIS));
+        panel3.add(JLabelRequests);
+        
+        
+        serverGUI.add(panel);
+        serverGUI.add(panel2);
+        serverGUI.add(panel3);
+        
+        serverGUI.setSize(300,150);
+        //serverGUI.pack();
+        serverGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        serverGUI.setVisible(true);
+    } 
+    
+    
+    
     public static void addStationData(String key) {
         int[] data = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         addStationData(key, data);
