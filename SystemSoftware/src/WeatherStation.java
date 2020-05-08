@@ -169,13 +169,13 @@ public class WeatherStation extends Thread {
             windSpeed = (int) (Math.random() * 100);
         }
         if (selectedParameter == "rainMeasurement") {
-            windSpeed = (int) (Math.random() * 100);
+            rainMeasurement = (int) (Math.random() * 100);
         }
         if (selectedParameter == "visibility") {
-            windSpeed = (int) (Math.random() * 100);
+            visibility = (int) (Math.random() * 100);
         }
         if (selectedParameter == "rainChance") {
-            windSpeed = (int) (Math.random() * 100);
+            rainChance = (int) (Math.random() * 100);
         }
         
     }
