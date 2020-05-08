@@ -256,7 +256,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private static void connectSocket() {
         Socket socket = null;
         try {
-            String host = "localhost";
+            String host = "178.62.9.119";
             socket = new Socket(host, 3000);
 
             System.out.println("socket open");
@@ -325,7 +325,7 @@ class ServerHandler implements Runnable {
             String request;
             String[] requestArray = {};
             while (true) {
-                java.util.concurrent.TimeUnit.MILLISECONDS.sleep(20);
+                java.util.concurrent.TimeUnit.MILLISECONDS.sleep(1);
                 if (loginPage.pleaseWork == true) {
                     requestLogin();
                     break;

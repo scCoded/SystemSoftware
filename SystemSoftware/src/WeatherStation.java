@@ -49,7 +49,7 @@ public class WeatherStation extends Thread {
         //thisObj.startRunning();
 
         ID = "station" + stationNumber;
-        String host = "localhost";
+        String host = "178.62.9.119";
         int port = 3000;
         try (Socket socket = new Socket(host, port)) {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);

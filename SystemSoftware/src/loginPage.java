@@ -154,7 +154,12 @@ public class loginPage extends javax.swing.JFrame {
             }
 
             if (reply == "DECLINE") {
+                SystemSoftwareForm.serverReply = null;
+                
+                System.out.println(SystemSoftwareForm.serverReply + " " + reply);
+                
                 JOptionPane.showMessageDialog(null, "Incorrect login details");
+
             }
         }
     }//GEN-LAST:event_loginBtn1ActionPerformed
@@ -167,15 +172,15 @@ public class loginPage extends javax.swing.JFrame {
             SystemSoftwareForm.User[0] = this.usernameBox.getText();
             SystemSoftwareForm.User[1] = this.passwordBox.getText();
             
-            
-            
-            reply = SystemSoftwareForm.serverReply;
-            
             try {
                 java.util.concurrent.TimeUnit.MILLISECONDS.sleep(20);
             } catch (InterruptedException ex) {
                 Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            reply = SystemSoftwareForm.serverReply;
+            
+            
 
             if (reply == "ACCEPT") {
                 SystemSoftwareForm.runningMan(null);
@@ -184,6 +189,10 @@ public class loginPage extends javax.swing.JFrame {
 
             if (reply == "DECLINE") {
                 JOptionPane.showMessageDialog(null, "Incorrect login details");
+                                SystemSoftwareForm.serverReply = null;
+                reply = null;
+                
+                System.out.println(SystemSoftwareForm.serverReply + " " + reply);
             }
         }
     }//GEN-LAST:event_passwordBoxKeyPressed
