@@ -1,5 +1,7 @@
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -19,6 +21,8 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private static ExecutorService pool = Executors.newFixedThreadPool(2);
     public static String[] User = new String[2];
     public static String serverReply = null;
+    public static ArrayList<String[]> fieldInfo = new ArrayList<>();
+    public static int noOfWS = 0;
 
     public SystemSoftwareForm() {
 
@@ -32,6 +36,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 connectSocket();
+                
 
                 loginPage login = new loginPage(null);
                 login.setVisible(true);
@@ -42,6 +47,12 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
     public static void runningMan(String args[]) {
         new SystemSoftwareForm().setVisible(true);
+        
+        try {
+            requestFieldInfo();
+        } catch (IOException ex) {
+            Logger.getLogger(SystemSoftwareForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void updateStationData(String key, int[] data) {
@@ -55,15 +66,22 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     public static void updateComboBox() {
         String value = (String) jComboBoxWs.getSelectedItem();
         int i = 0;
+        int x = 0;
         List<String> stations = new ArrayList();
         for (Map.Entry<String, int[]> entry : weatherStations.entrySet()) {
             stations.add(entry.getKey());
+            x++;
+            
             if (value == entry.getKey()) {
                 jComboBoxWs.setSelectedIndex(i);
             }
             i++;
         }
         jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(stations.toArray()));
+        
+        noOfWS = x;
+        System.out.println(noOfWS);
+        jLabelNoS.setText(" Number Of Stations : " + noOfWS);
     }
 
     public static void updateGUIValues() {
@@ -76,10 +94,31 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelRain.setText(" Rain Measurement : " + weatherStations.get(value)[5]);
         jLabelVisibility.setText(" Visibility : " + weatherStations.get(value)[6]);
         jLabelChance.setText(" Chance of Rain(%) : " + weatherStations.get(value)[7]);
-        
-        
-        
 
+    }
+
+    public static void requestFieldInfo() throws FileNotFoundException, IOException {
+        String csvFile = (System.getProperty("user.dir") + "/FieldInfo.txt");
+        String line = "";
+        String cvsSplitBy = ",";
+        String[] field = null;
+        String name = null;
+        String size = null;
+
+        try (BufferedReader csvReader = new BufferedReader(new FileReader(csvFile))) {
+            while ((line = csvReader.readLine()) != null) {
+                field = line.split(cvsSplitBy);
+
+                fieldInfo.add(field);
+            }
+
+        }
+
+        name = Arrays.toString(fieldInfo.get(0));
+        size = Arrays.toString(fieldInfo.get(1));
+
+        jLabelFieldName.setText(" Field Name : " + name);
+        jLabelFieldSize.setText(" Field Name : " + size);
     }
 
     @SuppressWarnings("unchecked")
@@ -97,8 +136,11 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabelChance = new javax.swing.JLabel();
         jLabelVisibility = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBoxWs = new javax.swing.JComboBox<String>();
+        jComboBoxWs = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jLabelFieldName = new javax.swing.JLabel();
+        jLabelFieldSize = new javax.swing.JLabel();
+        jLabelNoS = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -183,7 +225,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
+        jComboBoxWs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Weather Station 1", " Weather Station 2", " Weather Station 3", " Weather Station 4" }));
         jComboBoxWs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxWsActionPerformed(evt);
@@ -195,6 +237,15 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         jLabel1.setText(" Select a Weather Station");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabelFieldName.setText("Field Name : ");
+        jLabelFieldName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelFieldSize.setText("Field Size : ");
+        jLabelFieldSize.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelNoS.setText("Number Of Stations : ");
+        jLabelNoS.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -202,9 +253,14 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxWs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jLabelNoS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxWs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addComponent(jLabelFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelFieldSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,7 +269,13 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxWs, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelFieldSize, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNoS, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,11 +312,10 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxWsActionPerformed
 
-
     private static void connectSocket() {
         Socket socket = null;
         try {
-            String host = /*"178.62.9.119"*/"localhost";
+            String host = /*"178.62.9.119"*/ "localhost";
             socket = new Socket(host, 3000);
 
             System.out.println("socket open");
@@ -272,8 +333,11 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
     private static javax.swing.JComboBox<String> jComboBoxWs;
     private javax.swing.JLabel jLabel1;
     private static javax.swing.JLabel jLabelChance;
+    private static javax.swing.JLabel jLabelFieldName;
+    private static javax.swing.JLabel jLabelFieldSize;
     private static javax.swing.JLabel jLabelGPS;
     private static javax.swing.JLabel jLabelHumid;
+    private static javax.swing.JLabel jLabelNoS;
     private static javax.swing.JLabel jLabelRain;
     private static javax.swing.JLabel jLabelTemp;
     private static javax.swing.JLabel jLabelVisibility;
