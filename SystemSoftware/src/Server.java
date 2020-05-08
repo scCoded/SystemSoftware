@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.*;
 import javax.swing.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class Server extends javax.swing.JFrame{
@@ -39,7 +40,7 @@ public class Server extends javax.swing.JFrame{
         loginAuth();
         
         Server thisObj = new Server();
-        thisObj.stationData = new HashMap<>();
+        thisObj.stationData = new ConcurrentHashMap<>();
 
         ServerSocket server = null;
         gui();
@@ -174,8 +175,12 @@ public class Server extends javax.swing.JFrame{
         }
 
     }
+    
+
 
 }
+
+
 
 class ClientHandler implements Runnable {
 
@@ -241,9 +246,6 @@ class ClientHandler implements Runnable {
                     Server.updateStationData(key, index, newValue);
                     
                 } else if (requestArray[0].equals("requestAllStationData")) {
-                    Server.wsCount = Server.stationData.size();
-                    Server.updateGuiws(); 
-                    //
                     Iterator it = Server.stationData.entrySet().iterator();
                     while (it.hasNext()) {
                         Map.Entry pair = (Map.Entry) it.next();
@@ -276,7 +278,12 @@ class ClientHandler implements Runnable {
                     } else {
                         out.println("DECLINE");
                     }
-                } else {
+                }
+                else if(requestArray[0].equals("serverGuiStationCount")){
+                    Server.wsCount++;
+                    Server.updateGuiws();             
+                }
+                else {
                     out.println("request not found");
                 }
 
@@ -291,8 +298,6 @@ class ClientHandler implements Runnable {
                 if (in != null) {
                     in.close();
                     client.close();
-                    Server.usersCount--;
-                    Server.updateGuiUsers();
                 }
             } catch (IOException e) {
                 e.printStackTrace();

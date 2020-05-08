@@ -54,11 +54,13 @@ public class WeatherStation extends Thread {
         try (Socket socket = new Socket(host, port)) {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             Scanner scanner = new Scanner(System.in);
-            printData();
+            printData();           
 
             WeatherSensor sensor = new WeatherSensor();
             sensor.start();
-
+            
+            out.println("serverGuiStationCount");
+            
             while (on) {
                 String hello = ("addStationData2," + ID + "," + (gps[0]) + "," + (gps[1]) + "," + temperature + "," + humidity + "," + windSpeed + "," +rainMeasurement + "," + visibility + "," + rainChance);
                 System.out.println(hello);
