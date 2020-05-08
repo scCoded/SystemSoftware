@@ -343,7 +343,7 @@ public class SystemSoftwareForm extends javax.swing.JFrame {
                 pout.println("ID = "+ jComboBoxWs.getSelectedItem()+ ",");
                 pout.println("GPS Position: "+ weatherStations.get(value)[0]+","+ weatherStations.get(value)[1] );
                 pout.println("Temperature: " + weatherStations.get(value)[2]);
-                pout.println("Humdity: " +weatherStations.get(value)[3]);
+                pout.println("Humidity: " +weatherStations.get(value)[3]);
                 pout.println("Wind Speed: "+ weatherStations.get(value)[4]);
                 pout.println("Rain Measurement: "+ weatherStations.get(value)[5]);
                 pout.println("Visibility: " +weatherStations.get(value)[6]);

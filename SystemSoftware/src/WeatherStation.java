@@ -58,7 +58,9 @@ public class WeatherStation extends Thread {
 
             WeatherSensor sensor = new WeatherSensor();
             sensor.start();
-
+            
+            out.println("serverGuiStationCount");
+            
             while (on) {
                 String hello = ("addStationData2," + ID + "," + (gps[0]) + "," + (gps[1]) + "," + temperature + "," + humidity + "," + windSpeed + "," +rainMeasurement + "," + visibility + "," + rainChance);
                 System.out.println(hello);
