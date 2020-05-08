@@ -135,7 +135,7 @@ public class loginPage extends javax.swing.JFrame {
         if (passwordBox.getPassword().length != 0) //if password not empty checks file txt
         {
 
-            pleaseWork = true;
+
 
             SystemSoftwareForm.User[0] = this.usernameBox.getText();
             SystemSoftwareForm.User[1] = this.passwordBox.getText();
@@ -149,17 +149,14 @@ public class loginPage extends javax.swing.JFrame {
             reply = SystemSoftwareForm.serverReply;
 
             if (reply == "ACCEPT") {
+                pleaseWork = true;
                 SystemSoftwareForm.runningMan(null);
                 this.setVisible(false);
             }
 
             if (reply == "DECLINE") {
-                SystemSoftwareForm.serverReply = null;
-                
-                System.out.println(SystemSoftwareForm.serverReply);
                 
                 JOptionPane.showMessageDialog(null, "Incorrect login details");
-                
                 ServerHandler.requestLogin();
 
             }

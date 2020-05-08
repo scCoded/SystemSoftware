@@ -428,6 +428,7 @@ class ServerHandler implements Runnable {
         try {
             String request;
             String[] requestArray = {};
+            requestLogin();
             while (true) {
                 java.util.concurrent.TimeUnit.MILLISECONDS.sleep(1);
                 if (loginPage.pleaseWork == true) {
